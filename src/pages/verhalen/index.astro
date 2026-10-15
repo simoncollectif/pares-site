@@ -1,36 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import RubriekNav from '../../components/RubriekNav.astro';
 
 const posts = (await getCollection('verhalen', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 ---
 
-<Base title="Verhalen. PARES" description="Verhalen over voetbal, gelijkheid en het bouwen van PARES.">
-	<div class="wrap">
-	<h1>Verhalen</h1>
-	<ul>
-		{
-			posts.map((post) => (
-				<li>
-					<a href={`/verhalen/${post.id}/`}>
-						<span class="title">{post.data.title}</span>
-						<span class="desc">{post.data.description}</span>
-					</a>
-				</li>
-			))
-		}
-	</ul>
-	</div>
+<Base title="Verhalen. PARES" description="Goed nieuws uit de voetbalwereld: clubs, goede doelen, pleintjes, acties en mooie voetbalfoto's.">
+	<header class="wrap intro">
+		<h1>Verhalen</h1>
+		<p>Goed nieuws van het veld. Clubs, goede doelen, pleintjes, acties en mooie beelden.</p>
+	</header>
+	<RubriekNav />
+	<CardGrid posts={posts} />
 </Base>
 
 <style>
-	h1 { font-size: clamp(44px, 7vw, 88px); margin: 10vh 0 40px; }
-	ul { list-style: none; padding: 0; margin: 0 0 10vh; border-top: 1px solid var(--line); }
-	li { border-bottom: 1px solid var(--line); }
-	a { display: block; padding: 24px 0; text-decoration: none; }
-	.title { display: block; font-family: var(--font-head); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
-	.desc { color: var(--muted); font-size: 16px; }
-	a:hover .title { color: var(--accent); }
+	.intro { padding-block: 10vh 32px; }
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 0 0 16px; }
+	.intro p { color: var(--muted); max-width: 560px; margin: 0; }
 </style>

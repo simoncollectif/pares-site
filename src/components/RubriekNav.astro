@@ -1,0 +1,38 @@
+---
+import { rubrieken } from '../data/rubrieken';
+
+interface Props {
+	actief?: string;
+}
+const { actief } = Astro.props;
+---
+
+<nav class="rubrieken" aria-label="Rubrieken">
+	<a href="/verhalen/" class:list={{ on: !actief }}>Alles</a>
+	{
+		rubrieken.map((r) => (
+			<a href={`/rubriek/${r.slug}/`} class:list={{ on: actief === r.slug }}>
+				{r.naam}
+			</a>
+		))
+	}
+</nav>
+
+<style>
+	.rubrieken {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		padding: 16px var(--gutter);
+		border-bottom: 1px solid var(--line);
+	}
+	a {
+		text-decoration: none;
+		border: 1px solid var(--line);
+		padding: 6px 12px;
+		font-size: 14px;
+		font-weight: 500;
+	}
+	a:hover { border-color: var(--accent); color: var(--accent); }
+	a.on { background: var(--ink); color: var(--paper); }
+</style>

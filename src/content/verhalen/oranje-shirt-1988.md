@@ -5,6 +5,7 @@ date: 2026-10-13
 image: ../../assets/beeld/bal-krijt.jpg
 imageAlt: Een oude leren bal tegen een bakstenen muur naast een met krijt getekend doel
 imageAi: true
+rubriek: archief
 ---
 
 Op 25 juni 1988 won Nederland in München de finale van het EK van de Sovjet-Unie, met 2-0. Ruud Gullit kopte de eerste binnen. Marco van Basten schoot de tweede in een boog over Rinat Dasajev, vanaf een plek waar niemand had verwacht dat hij zou schieten. Het was de eerste grote prijs voor het Nederlands elftal.

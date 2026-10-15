@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Card from './Card.astro';
+
+interface Props {
+	posts: CollectionEntry<'verhalen'>[];
+}
+const { posts } = Astro.props;
+---
+
+<div class="grid">
+	{posts.map((post) => <Card post={post} />)}
+</div>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		border-top: 1px solid var(--line);
+	}
+	.grid > :global(*) { border-bottom: 1px solid var(--line); }
+	.grid > :global(*:not(:nth-child(3n))) { border-right: 1px solid var(--line); }
+	@media (max-width: 900px) {
+		.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		.grid > :global(*) { border-right: 0 !important; }
+		.grid > :global(*:nth-child(odd)) { border-right: 1px solid var(--line) !important; }
+	}
+	@media (max-width: 600px) {
+		.grid { grid-template-columns: 1fr; }
+		.grid > :global(*) { border-right: 0 !important; }
+	}
+</style>

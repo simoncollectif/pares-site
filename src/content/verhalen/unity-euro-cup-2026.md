@@ -2,6 +2,10 @@
 title: Elf spelers, acht nationaliteiten, één oranje shirt
 description: Deze week speelt Nederland op de Unity EURO Cup in Italië. Een team van vluchtelingen en Nederlanders, samen in het oranje.
 date: 2026-10-15
+rubriek: goede-doelen
+bron:
+  naam: KNVB
+  url: https://www.knvb.nl/unitycup
 ---
 
 Vandaag wordt er in Coverciano gevoetbald. Dat is het trainingscentrum van de Italiaanse voetbalbond, net buiten Florence. Het toernooi heet de Unity EURO Cup, en het is georganiseerd door de UEFA en de vluchtelingenorganisatie van de VN, UNHCR.
@@ -14,4 +18,3 @@ Wat hen bindt is niet een paspoort. Het is het shirt. Iedereen draagt hetzelfde 
 
 Daar draait het bij PARES om. Op het veld vraagt niemand waar je vandaan komt. Je krijgt de bal, en je doet mee.
 
-*Bron: [KNVB, Unity EURO Cup](https://www.knvb.nl/unitycup)*

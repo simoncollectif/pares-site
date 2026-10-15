@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import RubriekNav from '../../components/RubriekNav.astro';
+import { rubrieken } from '../../data/rubrieken';
+
+export function getStaticPaths() {
+	return rubrieken.map((r) => ({ params: { slug: r.slug }, props: { rubriek: r } }));
+}
+
+const { rubriek } = Astro.props;
+const posts = (await getCollection('verhalen', ({ data }) => !data.draft && data.rubriek === rubriek.slug)).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Base title={`${rubriek.naam}. PARES`} description={rubriek.omschrijving}>
+	<header class="wrap intro">
+		<h1>{rubriek.naam}</h1>
+		<p>{rubriek.omschrijving}</p>
+	</header>
+	<RubriekNav actief={rubriek.slug} />
+	{
+		posts.length > 0 ? (
+			<CardGrid posts={posts} />
+		) : (
+			<p class="wrap leeg">Hier komen binnenkort de eerste verhalen.</p>
+		)
+	}
+</Base>
+
+<style>
+	.intro { padding-block: 10vh 32px; }
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 0 0 16px; }
+	.intro p { color: var(--muted); max-width: 560px; margin: 0; }
+	.leeg { padding-block: 48px; color: var(--muted); }
+</style>

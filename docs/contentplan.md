@@ -1,5 +1,7 @@
 # Contentplan PARES
 
+PARES is de plek waar al het goede van voetbal samenkomt: clubs die iets goeds doen, goede doelen, bedrijven die bijdragen, pleintjes, acties en mooie beelden. Een goednieuws-magazine over voetbal, met later een kaart van alle pleintjes.
+
 PARES bouwt eerst een merk, geen winkel. Op de site en in posts staat nergens dat er schoenen of kleding aankomen. Alles draait om het veld, de verhalen en kinderen die willen spelen.
 
 ## Stem
@@ -24,7 +26,29 @@ Weinig concurrentie en past bij het merk. Daar beginnen we:
 
 Te groot om nu op te concurreren: futsal (2.400, 72) en amateurvoetbal (1.900, 87). Wel over schrijven, niet op mikken.
 
-## Vaste rubrieken
+## Rubrieken op de site (sinds 15 oktober 2026)
+
+Elk stuk heeft in de frontmatter een `rubriek` en een `vorm` (`verhaal` of `kort`). Bij nieuws staat de `bron` erbij.
+
+| Rubriek | Wat | Zoekwoord om op te mikken |
+|---|---|---|
+| Clubs | Clubs die iets goeds doen | voetbalclub + plaatsnaam, walking football |
+| Goede doelen | Stichtingen en projecten met voetbal | krajicek playground (210), life goals (480) |
+| Bedrijven | Bedrijven die via voetbal iets teruggeven | (nog weinig zoekvolume, wel goed om te delen) |
+| Pleintjes | Trapveldjes, kooien, courts | trapveldje (590, makkelijk), straatvoetbal (480), cruyff court + stad |
+| Acties | Inzamelingen, toernooien, fanacties | voetbaltoernooi (540, makkelijk), tweedehands voetbalschoenen |
+| Beeld | Voetbalfoto's en fotografen | voetbal foto (590, makkelijk, stijgend), voetbal fotografie |
+| Wereldvoetbal | Goed nieuws van buiten Nederland | braziliaans voetbal, homeless world cup |
+| Archief | Shirts en momenten van vroeger | retro voetbaltruitjes (440), retro kits (480), oranje shirt 1988 |
+
+Breed: "voetbal tijdschrift" (260) past bij hoe PARES zich positioneert. Te groot om op te mikken: voetbal nieuws (5.400, moeilijkheid 89), goed nieuws (1.000, 73), voetbalveld (18.100, gaat vooral over afmetingen).
+
+## Vorm
+
+- **Kort:** een nieuwtje van 120 tot 200 woorden. Wat er gebeurde, waar, wie, en waarom het mooi is. Altijd met bron. Drie tot vier per week.
+- **Verhaal:** een langer stuk van 400 tot 700 woorden. Eén keer per week of per twee weken.
+
+## Oude rubriekindeling (nog bruikbaar als vaste formats)
 
 1. **Van het veld.** Een echt verhaal over een club, trainer, buurt of project dat iets goeds doet. Eén per twee weken.
 2. **Archief.** Een shirt, een toernooi of een moment uit de jaren 80 en 90, en wat het betekende. Haakt in op de zoekwoorden over retro shirts.

@@ -5,6 +5,7 @@ date: 2026-10-15
 image: ../../assets/beeld/favela-trap.jpg
 imageAlt: Drie kinderen lopen met een bal een trap af, met een favela tegen de heuvel op de achtergrond
 imageAi: true
+rubriek: pares
 ---
 
 Kijk naar een pleintje op woensdagmiddag. Niemand vraagt waar je woont. Niemand vraagt wat je vader doet of welke schoenen je aanhebt. Er wordt gekozen, er wordt gespeeld, en wie scoort mag de volgende keer als eerste kiezen.

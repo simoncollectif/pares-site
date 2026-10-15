@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
+import { rubriekNaam } from '../../data/rubrieken';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('verhalen', ({ data }) => !data.draft);
@@ -10,19 +11,27 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const { title, description, date, rubriek, bron, image, imageAlt, imageAi } = post.data;
 ---
 
-<Base title={`${post.data.title}. PARES`} description={post.data.description}>
-	{post.data.image && <Photo src={post.data.image} alt={post.data.imageAlt ?? ''} ai={post.data.imageAi} loading="eager" />}
+<Base title={`${title}. PARES`} description={description}>
+	{image && <Photo src={image} alt={imageAlt ?? ''} ai={imageAi} loading="eager" />}
 	<article class="wrap">
-		<p class="date">{post.data.date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-		<h1>{post.data.title}</h1>
+		<p class="meta">
+			<a href={`/rubriek/${rubriek}/`}>{rubriekNaam(rubriek)}</a>
+			<span>{date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+		</p>
+		<h1>{title}</h1>
 		<Content />
+		{bron && <p class="bron">Bron: <a href={bron.url} rel="noopener">{bron.naam}</a></p>}
 	</article>
 </Base>
 
 <style>
 	article { max-width: calc(680px + 2 * var(--gutter)); margin: 10vh 0; }
-	.date { color: var(--accent); font-weight: 600; font-size: 15px; }
+	.meta { display: flex; gap: 16px; font-weight: 600; font-size: 15px; }
+	.meta a { color: var(--accent); text-decoration: none; }
+	.meta span { color: var(--muted); font-weight: 500; }
 	h1 { font-size: clamp(40px, 6vw, 72px); margin: 0 0 32px; }
+	.bron { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
 </style>

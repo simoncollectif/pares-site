@@ -5,6 +5,10 @@ date: 2026-10-14
 image: ../../assets/beeld/pleintje-hek.jpg
 imageAlt: Kinderen voetballen op een betonnen pleintje tussen bakstenen flats, gezien door een hek
 imageAi: true
+rubriek: pleintjes
+bron:
+  naam: Cruyff Foundation
+  url: https://www.cruyff-foundation.org/en/news/soufiane-touzani-opens-new-cruyff-court-in-meppel/
 ---
 
 Op de plek van een oud voetbalveldje in Haveltermade, een wijk in Meppel, ligt sinds juni een nieuw Cruyff Court. Midden in de buurt, vlak bij de scholen.
@@ -17,4 +21,3 @@ Het court is er gekomen met de gemeente Meppel, de provincie Drenthe, de Cruyff 
 
 Dat laatste is misschien het mooiste deel. Een veldje wordt pas echt van de buurt als de buurt er zelf iets mee doet.
 
-*Bron: [Cruyff Foundation](https://www.cruyff-foundation.org/en/news/soufiane-touzani-opens-new-cruyff-court-in-meppel/)*

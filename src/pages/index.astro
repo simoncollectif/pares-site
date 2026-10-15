@@ -3,13 +3,15 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Monogram from '../components/Monogram.astro';
 import Photo from '../components/Photo.astro';
+import CardGrid from '../components/CardGrid.astro';
+import RubriekNav from '../components/RubriekNav.astro';
 import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
 import havana from '../assets/beeld/havana-straat.jpg';
 import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
 
 const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.slice(0, 3);
+	.slice(0, 6);
 ---
 
 <Base>
@@ -36,6 +38,15 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		loading="eager"
 	/>
 
+	<section class="latest">
+		<div class="wrap latest-head">
+			<h2>Goed nieuws van het veld</h2>
+			<a href="/verhalen/">Alle verhalen</a>
+		</div>
+		<RubriekNav />
+		<CardGrid posts={posts} />
+	</section>
+
 	<section class="pillars">
 		<div>
 			<span class="num">01</span>
@@ -58,24 +69,6 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		<Photo src={havana} alt="Een jongen gooit een bal op in een straat met afbladderende muren, drie kinderen kijken toe" ai />
 		<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
 	</section>
-
-	{
-		posts.length > 0 && (
-			<section class="latest wrap">
-				<h2>Laatste verhalen</h2>
-				<ul>
-					{posts.map((post) => (
-						<li>
-							<a href={`/verhalen/${post.id}/`}>
-								<span class="title">{post.data.title}</span>
-								<span class="desc">{post.data.description}</span>
-							</a>
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
 
 	<section class="quote wrap">
 		<p><em>Pares</em> is Latijn voor gelijken.</p>
@@ -121,13 +114,11 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	.duo { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
 	.duo :global(.photo + .photo) { border-left: 1px solid var(--line); }
 
-	.latest { padding-block: 56px 0; }
-	.latest ul { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
-	.latest li { border-bottom: 1px solid var(--line); }
-	.latest a { display: block; padding: 22px 0; text-decoration: none; }
-	.latest .title { display: block; font-family: var(--font-head); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
-	.latest .desc { color: var(--muted); font-size: 16px; }
-	.latest a:hover .title { color: var(--accent); }
+	.latest { padding-top: 56px; }
+	.latest-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 8px; }
+	.latest-head h2 { margin: 0; font-size: clamp(30px, 4vw, 44px); }
+	.latest-head a { font-weight: 600; text-underline-offset: 4px; }
+	.latest-head a:hover { color: var(--accent); }
 
 	.quote {
 		display: flex;
