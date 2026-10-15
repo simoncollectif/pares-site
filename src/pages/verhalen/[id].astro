@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('verhalen', ({ data }) => !data.draft);
@@ -12,6 +13,7 @@ const { Content } = await render(post);
 ---
 
 <Base title={`${post.data.title}. PARES`} description={post.data.description}>
+	{post.data.image && <Photo src={post.data.image} alt={post.data.imageAlt ?? ''} ai={post.data.imageAi} loading="eager" />}
 	<article class="wrap">
 		<p class="date">{post.data.date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
 		<h1>{post.data.title}</h1>

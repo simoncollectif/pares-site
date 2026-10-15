@@ -2,6 +2,10 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Monogram from '../components/Monogram.astro';
+import Photo from '../components/Photo.astro';
+import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
+import havana from '../assets/beeld/havana-straat.jpg';
+import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
 
 const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -25,6 +29,13 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		</div>
 	</section>
 
+	<Photo
+		src={schaduwen}
+		alt="Vier kinderen rennen achter een bal aan onder een viaduct, met lange schaduwen op het beton"
+		ai
+		loading="eager"
+	/>
+
 	<section class="pillars">
 		<div>
 			<span class="num">01</span>
@@ -41,6 +52,11 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 			<h2>Het doel</h2>
 			<p>Meer kinderen op het veld, met voetbaldagen op pleintjes waar het nodig is.</p>
 		</div>
+	</section>
+
+	<section class="duo">
+		<Photo src={havana} alt="Een jongen gooit een bal op in een straat met afbladderende muren, drie kinderen kijken toe" ai />
+		<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
 	</section>
 
 	{
@@ -102,6 +118,9 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	h2 { font-size: 30px; margin: 12px 0 12px; }
 	.pillars p { margin: 0; color: var(--muted); }
 
+	.duo { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+	.duo :global(.photo + .photo) { border-left: 1px solid var(--line); }
+
 	.latest { padding-block: 56px 0; }
 	.latest ul { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
 	.latest li { border-bottom: 1px solid var(--line); }
@@ -128,6 +147,7 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		.hero-mark { justify-content: flex-start; }
 		.hero-mark :global(svg) { width: 120px; }
 		.pillars { grid-template-columns: 1fr; }
+		.duo { grid-template-columns: 1fr; }
 		.pillars div + div { border-left: 0; border-top: 1px solid var(--line); }
 	}
 </style>
