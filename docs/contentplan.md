@@ -37,3 +37,33 @@ Te groot om nu op te concurreren: futsal (2.400, 72) en amateurvoetbal (1.900, 8
 - Elke week één beeld met een korte zin. Geen uitleg erbij, het beeld moet het doen.
 - Elk verhaal wordt een carrousel van drie tot vijf beelden plus één citaat.
 - "Wist je dat"-feitjes, maar alleen met een bron.
+
+## Verhalen op de plank (uit onderzoek, 15 oktober 2026)
+
+Gepubliceerd: Waarom PARES, Unity EURO Cup 2026, Cruyff Court Meppel, Oranje-shirt 1988.
+
+Volgende, eerst bron checken:
+
+- **Cruyff-veldje Buikslotermeerplein, Amsterdam-Noord.** Oplevering verwacht december 2026. Verhaal schrijven rond de opening. [Rodi](https://www.rodi.nl/amsterdam-noord/nieuws/449673/nieuw-cruyff-voetbalveldje-vlakbij-buikslotermeerplein)
+- **Cruyff Court Patrick Kluivert, Amsterdam-Noord** (februari 2026). [Cruyff Foundation](https://www.cruyff-foundation.org/en/news/court-patrick-kluivert-opened-in-amsterdam-noord/)
+- **Panna KO-toernooien** van het Jeugdfonds Sport & Cultuur: gratis straatvoetbal in 15 steden. Past bij het zoekwoord straatvoetbal. [Rodi Haarlem](https://www.rodi.nl/haarlem/nieuws/457653/derde-panna-knock-out-toernooi-op-flevoplein-in-delftwijk)
+- **Krajicek Playgrounds**: 139 veldjes in 43 gemeenten, meer dan 6.500 kinderen per week. [Jaarverslag 2025](https://jaarverslag.krajicek.nl/site/assets/files/1706/krajicek_downloads_-_krajicek_model_2025.pdf)
+- **Meidenvoetbal in Amsterdam**: acht meidenhubs, zodat elk meisje binnen 3 km kan voetballen. Eerst checken hoe het er nu voor staat. [AT5](https://www.at5.nl/artikelen/229985/gemeente-maakt-25-miljoen-vrij-voor-meidenvoetbal-huidig-aanbod-te-mager)
+- **Street Child United in Complexo da Penha, Rio.** Rubriek Wereldvoetbal. [AP via Click2Houston](https://www.click2houston.com/news/world/2026/06/04/brazilian-players-from-a-rio-de-janeiro-favela-find-hope-and-opportunities-thanks-to-soccer/)
+- **Homeless World Cup op de Zócalo in Mexico-Stad**, 17-23 januari 2027. Schrijven in januari. [Homeless World Cup](https://www.homelessworldcup.org/news/mexico-city-2026-dates-announced)
+- **Newcastle United Foundation "Boot Room"**: fans leveren oude voetbalschoenen in voor jeugdspelers. Er bestaat in Nederland geen vaste voetbalschoenenbank. Dat is een gat dat PARES later zelf kan vullen. [Newcastle United](https://www.newcastleunited.com/en/news/boot-room-donation-drive-launched)
+- **Tekort aan scheidsrechters**: 1.000 tot 1.500 te weinig, elk weekend. Verhaal over één scheidsrechter bij een amateurclub.
+- **KNVB-ledenrecord**: jaarverslag 2025/26 verwacht in november 2026. Inhaken met een verhaal over meisjes die gaan voetballen.
+
+## Kalender
+
+| Wanneer | Haakje |
+|---|---|
+| november 2026 | KNVB-jaarverslag, Oranje tegen Griekenland (13 nov) |
+| december 2026 | Opening Cruyff-veldje Buikslotermeerplein |
+| januari 2027 | Homeless World Cup, Mexico-Stad |
+| voorjaar 2027 | Eerste PARES-voetbaldag op een pleintje |
+
+## Mogelijke partners later
+
+Johan Cruyff Foundation, Jeugdfonds Sport & Cultuur, Stichting Leergeld (Sam&), Krajicek Foundation, Stichting Life Goals.
