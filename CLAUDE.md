@@ -11,9 +11,12 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 - PARES is een goednieuws-platform over voetbal. Schrijf als het merk, niet als Simon. Feiten alleen met een gecontroleerde bron. Zie `docs/contentplan.md`, `docs/shootplan.md` en `docs/midjourney-prompts.md`.
 - Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Het logo is `src/components/Monogram.astro`.
 
-## Community
+## Community (eigen backend)
 
-- Koppelingen staan in `src/data/community.ts`: Kit (nieuwsbrief), Tally (insturen op `/insturen/`), Cusdis (reacties onder elk verhaal). Leeg = de site toont "binnenkort".
+- Google Apps Script "PARES backend" op Simons Google-account (simon@lecollectif.nl), code in `backend/Code.gs`. Wijzig je de code: plak hem in de editor op script.google.com en maak een nieuwe versie van de bestaande implementatie (zelfde URL).
+- Opslag: Google Sheet "PARES data" (tabs Inschrijvingen, Insturen, Reacties), foto's in Drive-map "PARES insturen". Meldingen gaan per mail naar Simon.
+- Site: `src/data/community.ts` (web-app-URL), `src/scripts/api.ts`, componenten `Nieuwsbrief.astro` en `Reacties.astro`, pagina `/insturen/`.
+- Nieuwsbrief met dubbele opt-in en afmeldlink. Versturen en beheren: `python3 -I scripts/brief.py stats|review|hide|test|send` (sleutels in `data-raw/backend.json`, niet in git). Altijd eerst `test`, en Simon vragen voordat je `send` doet.
 - Verhalen zijn blogs van 450 tot 700 woorden met context en echte citaten. Nooit citaten verzinnen of parafrases tussen aanhalingstekens zetten.
 
 ## Pleintjeskaart

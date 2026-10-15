@@ -1,41 +1,99 @@
 ---
-import { community } from '../data/community';
-
 interface Props {
 	id: string;
-	titel: string;
 }
-const { id, titel } = Astro.props;
-const url = new URL(Astro.url.pathname, 'https://paresfootball.com').toString();
+const { id } = Astro.props;
 ---
 
-<section class="reacties">
+<section class="reacties" data-pagina={id}>
 	<h2>Reacties</h2>
-	{
-		community.cusdisAppId ? (
-			<>
-				<div
-					id="cusdis_thread"
-					data-host="https://cusdis.com"
-					data-app-id={community.cusdisAppId}
-					data-page-id={id}
-					data-page-url={url}
-					data-page-title={titel}
-					data-theme="light"
-				/>
-				<script is:inline async defer src="https://cusdis.com/js/cusdis.es.js" />
-			</>
-		) : (
-			<p class="binnenkort">
-				Reageren kan binnenkort. Ken je dit veldje, deze club of dit verhaal? <a href="/insturen/">Stuur het ons</a>.
-			</p>
-		)
-	}
+	<ol class="lijst" aria-live="polite"><li class="leeg">Reacties laden…</li></ol>
+	<form class="reactie-form" novalidate>
+		<label>Je naam <input type="text" name="naam" maxlength="60" required autocomplete="name" /></label>
+		<label>Je reactie <textarea name="tekst" rows="4" maxlength="1500" required placeholder="Ken je dit veldje, deze club of dit verhaal?"></textarea></label>
+		<input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+		<button type="submit">Plaatsen</button>
+		<p class="melding" role="status" hidden></p>
+	</form>
 </section>
+
+<script>
+	import { get, post, velden, markeerStart, melding } from '../scripts/api';
+
+	type Reactie = { datum: string; naam: string; tekst: string };
+
+	function item(r: Reactie) {
+		const li = document.createElement('li');
+		const kop = document.createElement('p');
+		kop.className = 'kop';
+		const naam = document.createElement('strong');
+		naam.textContent = r.naam;
+		const datum = document.createElement('span');
+		datum.textContent = new Date(r.datum).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+		kop.append(naam, datum);
+		const tekst = document.createElement('p');
+		tekst.textContent = r.tekst;
+		li.append(kop, tekst);
+		return li;
+	}
+
+	document.querySelectorAll<HTMLElement>('.reacties').forEach(async (sectie) => {
+		const pagina = sectie.dataset.pagina!;
+		const lijst = sectie.querySelector('.lijst')!;
+		const form = sectie.querySelector<HTMLFormElement>('.reactie-form')!;
+		markeerStart(form);
+
+		const res = await get({ action: 'comments', page: pagina });
+		const reacties = (res.reacties as Reactie[] | undefined) ?? [];
+		lijst.replaceChildren(...reacties.map(item));
+		if (!reacties.length) {
+			const li = document.createElement('li');
+			li.className = 'leeg';
+			li.textContent = 'Nog geen reacties. Jij kunt de eerste zijn.';
+			lijst.append(li);
+		}
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const data = velden(form);
+			if (!String(data.naam || '').trim() || String(data.tekst || '').trim().length < 2) {
+				melding(form, 'Vul je naam en een reactie in.');
+				return;
+			}
+			const knop = form.querySelector('button')!;
+			knop.disabled = true;
+			const r = await post('comment', { ...data, page: pagina });
+			knop.disabled = false;
+			if (r.ok) {
+				lijst.querySelector('.leeg')?.remove();
+				lijst.append(item(r.reactie as Reactie));
+				form.reset();
+				markeerStart(form);
+				melding(form, 'Dank je, je reactie staat erbij.', true);
+			} else {
+				melding(form, r.fout || 'Dat lukte niet. Probeer het zo nog eens.');
+			}
+		});
+	});
+</script>
 
 <style>
 	.reacties { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
 	h2 { font-size: 28px; margin: 0 0 16px; }
-	.binnenkort { color: var(--muted); }
-	.binnenkort a { color: var(--ink); font-weight: 600; }
+	.lijst { list-style: none; padding: 0; margin: 0 0 32px; }
+	.lijst :global(li) { border-bottom: 1px solid #e6e6e6; padding: 14px 0; }
+	.lijst :global(.kop) { display: flex; gap: 12px; align-items: baseline; margin: 0 0 4px; }
+	.lijst :global(.kop span) { color: var(--muted); font-size: 14px; }
+	.lijst :global(li p:last-child) { margin: 0; white-space: pre-line; font-size: 17px; }
+	.lijst :global(.leeg) { color: var(--muted); }
+	.reactie-form { display: grid; gap: 14px; }
+	label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+	input[type='text'], textarea { font: inherit; font-weight: 400; border: 1px solid var(--line); padding: 12px 14px; }
+	input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+	button { justify-self: start; background: var(--ink); color: var(--paper); border: 0; padding: 12px 24px; font: inherit; font-weight: 600; cursor: pointer; }
+	button:hover { background: var(--accent); }
+	button:disabled { opacity: 0.6; cursor: wait; }
+	.melding { margin: 0; color: #a32d2d; }
+	.melding.goed { color: var(--ink); font-weight: 600; }
+	.hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
 </style>

@@ -1,11 +1,6 @@
-// Koppelingen met de community-tools. Leeg = nog niet gekoppeld; de site toont dan een nette "binnenkort".
+// Eigen backend: Google Apps Script op Simons Google-account (code in backend/Code.gs).
+// Opslag in de Google Sheet "PARES data"; foto's in de Drive-map "PARES insturen".
 export const community = {
-	// Kit (nieuwsbrief): de src van het embed-script, bijv. 'https://pares.kit.com/abc123/index.js'
-	kitEmbedSrc: '',
-	kitFormUid: '',
-	// Tally (insturen): het formulier-ID uit de link tally.so/r/<ID>
-	tallyFormId: '',
-	// Cusdis (reacties): het App ID uit het Cusdis-dashboard
-	cusdisAppId: '',
+	api: 'https://script.google.com/macros/s/AKfycbwAT5R6R3By5GKAeN3ADguzCeyeV5xjwpl5p41hzoXAj97K4K_B9dN1IeDxRo9rTMZR/exec',
 	instagram: 'https://www.instagram.com/',
 };

@@ -27,7 +27,7 @@ const { title, description, date, rubriek, bron, image, imageAlt, imageAi } = po
 		{image ? <h1>{title}</h1> : <p class="lead">{description}</p>}
 		<Content />
 		{bron && <p class="bron">Bron: <a href={bron.url} rel="noopener">{bron.naam}</a></p>}
-		<Reacties id={post.id} titel={title} />
+		<Reacties id={post.id} />
 	</article>
 	<Nieuwsbrief />
 </Base>

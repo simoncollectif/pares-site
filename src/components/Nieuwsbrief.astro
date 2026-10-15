@@ -1,6 +1,8 @@
 ---
-import { community } from '../data/community';
-const actief = community.kitEmbedSrc && community.kitFormUid;
+interface Props {
+	bron?: string;
+}
+const { bron = Astro.url.pathname } = Astro.props;
 ---
 
 <section class="brief">
@@ -10,17 +12,47 @@ const actief = community.kitEmbedSrc && community.kitFormUid;
 			<h2>Elke twee weken het mooiste van het veld in je inbox.</h2>
 			<p class="uitleg">Een pleintje, een verhaal, iets uit het archief. Kort, zonder reclame.</p>
 		</div>
-		<div class="form">
-			{
-				actief ? (
-					<script is:inline async data-uid={community.kitFormUid} src={community.kitEmbedSrc} />
-				) : (
-					<p class="binnenkort">De eerste brief komt binnenkort. Volg PARES op Instagram om hem niet te missen.</p>
-				)
-			}
-		</div>
+		<form class="brief-form" novalidate>
+			<label class="sr">E-mailadres</label>
+			<div class="rij">
+				<input type="email" name="email" required placeholder="jouw@email.nl" autocomplete="email" aria-label="E-mailadres" />
+				<button type="submit">Aanmelden</button>
+			</div>
+			<input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+			<input type="hidden" name="bron" value={bron} />
+			<p class="melding" role="status" hidden></p>
+			<p class="klein">Je krijgt eerst een mail om te bevestigen. Afmelden kan altijd, met één klik.</p>
+		</form>
 	</div>
 </section>
+
+<script>
+	import { post, velden, markeerStart, melding } from '../scripts/api';
+
+	document.querySelectorAll<HTMLFormElement>('.brief-form').forEach((form) => {
+		markeerStart(form);
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const knop = form.querySelector('button')!;
+			const data = velden(form);
+			if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(data.email || ''))) {
+				melding(form, 'Vul een geldig e-mailadres in.');
+				return;
+			}
+			knop.disabled = true;
+			knop.textContent = 'Even geduld';
+			const res = await post('subscribe', data);
+			knop.disabled = false;
+			knop.textContent = 'Aanmelden';
+			if (res.ok) {
+				form.reset();
+				melding(form, res.al ? 'Je staat er al op. Fijn dat je er bent.' : 'Bijna klaar. Check je inbox en bevestig je aanmelding.', true);
+			} else {
+				melding(form, res.fout || 'Dat lukte niet. Probeer het zo nog eens.');
+			}
+		});
+	});
+</script>
 
 <style>
 	.brief { background: var(--ink); color: var(--paper); border-top: 1px solid var(--line); }
@@ -28,7 +60,17 @@ const actief = community.kitEmbedSrc && community.kitFormUid;
 	.label { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; margin: 0 0 12px; }
 	h2 { font-size: clamp(30px, 4vw, 48px); margin: 0 0 16px; }
 	.uitleg { color: #bdbdbd; margin: 0; }
-	.binnenkort { border: 1px solid #555; padding: 20px; color: #d4d4d4; margin: 0; }
+	.rij { display: flex; border: 1px solid var(--paper); }
+	input[type='email'] { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--paper); padding: 14px 16px; font: inherit; }
+	input[type='email']::placeholder { color: #8a8a8a; }
+	input[type='email']:focus { outline: 2px solid var(--accent-on-dark); outline-offset: -2px; }
+	button { background: var(--paper); color: var(--ink); border: 0; padding: 0 20px; font: inherit; font-weight: 600; cursor: pointer; }
+	button:hover { background: var(--accent-on-dark); color: var(--paper); }
+	button:disabled { opacity: 0.6; cursor: wait; }
+	.melding { margin: 12px 0 0; color: #f0b3bd; }
+	.melding.goed { color: var(--paper); }
+	.klein { color: #8a8a8a; font-size: 13px; margin: 12px 0 0; }
+	.hp, .sr { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 	@media (max-width: 760px) {
 		.inner { grid-template-columns: 1fr; }
 	}

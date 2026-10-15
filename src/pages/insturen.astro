@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Nieuwsbrief from '../components/Nieuwsbrief.astro';
-import { community } from '../data/community';
 
 const soorten = [
 	{ titel: 'Een veldje', tekst: 'Het pleintje, de kooi of het court waar jij bent opgegroeid, of waar elke avond gespeeld wordt.' },
@@ -32,28 +31,81 @@ const soorten = [
 	</section>
 
 	<section class="wrap formulier">
-		{
-			community.tallyFormId ? (
-				<>
-					<iframe
-						data-tally-src={`https://tally.so/embed/${community.tallyFormId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
-						loading="lazy"
-						width="100%"
-						height="600"
-						frameborder="0"
-						title="Stuur het ons"
-					/>
-					<script is:inline async src="https://tally.so/widgets/embed.js" onload="Tally.loadEmbeds()" />
-				</>
-			) : (
-				<p class="binnenkort">Het insturen-formulier komt binnenkort. Tot die tijd kun je PARES een bericht sturen op Instagram.</p>
-			)
-		}
-		<p class="klein">Stuur alleen foto's die je zelf hebt gemaakt. Staan er kinderen herkenbaar op, vraag dan eerst toestemming aan hun ouders.</p>
+		<form id="insturen" novalidate>
+			<fieldset class="soort">
+				<legend>Wat stuur je in?</legend>
+				<label><input type="radio" name="soort" value="veldje" checked /> Een veldje</label>
+				<label><input type="radio" name="soort" value="verhaal" /> Een verhaal</label>
+				<label><input type="radio" name="soort" value="foto" /> Een foto</label>
+				<label><input type="radio" name="soort" value="actie" /> Een actie</label>
+			</fieldset>
+			<label>Titel <span>in een paar woorden</span>
+				<input type="text" name="titel" maxlength="160" placeholder="Het veldje achter de Javastraat" />
+			</label>
+			<label>Waar? <span>plaats, wijk of straat</span>
+				<input type="text" name="plaats" maxlength="120" placeholder="Amsterdam-Oost" />
+			</label>
+			<label>Het verhaal <span>wie speelt er, wat gebeurt er, waarom is het mooi?</span>
+				<textarea name="verhaal" rows="7" maxlength="5000" required></textarea>
+			</label>
+			<label>Foto <span>optioneel, alleen een foto die je zelf hebt gemaakt</span>
+				<input type="file" name="fotobestand" accept="image/jpeg,image/png,image/webp" />
+			</label>
+			<div class="twee">
+				<label>Je naam <input type="text" name="naam" maxlength="80" autocomplete="name" /></label>
+				<label>Je e-mail <span>zodat we je iets kunnen vragen</span><input type="email" name="email" maxlength="200" autocomplete="email" /></label>
+			</div>
+			<label class="check"><input type="checkbox" name="toestemming" value="ja" /> PARES mag dit (met mijn naam) gebruiken op de site, in de brief en op Instagram.</label>
+			<input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+			<button type="submit">Insturen</button>
+			<p class="melding" role="status" hidden></p>
+		</form>
+		<p class="klein">Staan er kinderen herkenbaar op je foto? Vraag dan eerst toestemming aan hun ouders.</p>
 	</section>
 
 	<Nieuwsbrief />
 </Base>
+
+<script>
+	import { post, velden, markeerStart, melding, verkleinFoto } from '../scripts/api';
+
+	const form = document.getElementById('insturen') as HTMLFormElement;
+	markeerStart(form);
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		const data = velden(form);
+		delete data.fotobestand;
+		if (String(data.verhaal || '').trim().length < 10) {
+			melding(form, 'Vertel iets meer, minstens een paar zinnen.');
+			return;
+		}
+		const knop = form.querySelector('button')!;
+		knop.disabled = true;
+		knop.textContent = 'Bezig met versturen';
+		const bestand = (form.elements.namedItem('fotobestand') as HTMLInputElement).files?.[0];
+		if (bestand) {
+			try {
+				data.foto = await verkleinFoto(bestand);
+			} catch {
+				melding(form, 'Deze foto kon niet worden gelezen. Probeer een JPG of PNG.');
+				knop.disabled = false;
+				knop.textContent = 'Insturen';
+				return;
+			}
+		}
+		data.toestemming = data.toestemming === 'ja';
+		const res = await post('submit', data);
+		knop.disabled = false;
+		knop.textContent = 'Insturen';
+		if (res.ok) {
+			form.reset();
+			markeerStart(form);
+			melding(form, 'Dank je. We lezen alles en nemen contact op als we het willen gebruiken.', true);
+		} else {
+			melding(form, res.fout || 'Dat lukte niet. Probeer het zo nog eens.');
+		}
+	});
+</script>
 
 <style>
 	.intro { padding-block: 10vh 32px; }
@@ -65,7 +117,26 @@ const soorten = [
 	.soorten h2 { font-size: 26px; margin: 0 0 8px; }
 	.soorten p { margin: 0; color: var(--muted); font-size: 16px; }
 	.formulier { padding-block: 48px; max-width: calc(720px + 2 * var(--gutter)); }
-	.binnenkort { border: 1px solid var(--line); padding: 24px; margin: 0; }
+	form { display: grid; gap: 20px; }
+	label { display: grid; gap: 6px; font-weight: 600; }
+	label span { font-weight: 400; color: var(--muted); font-size: 14px; }
+	input[type='text'], input[type='email'], textarea { font: inherit; font-weight: 400; border: 1px solid var(--line); padding: 12px 14px; background: var(--paper); }
+	input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+	.soort { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+	.soort legend { font-weight: 600; margin-bottom: 8px; }
+	.soort label { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); padding: 8px 14px; font-weight: 500; cursor: pointer; }
+	.soort label:has(input:checked) { background: var(--ink); color: var(--paper); }
+	.soort input { accent-color: var(--accent); }
+	.twee { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+	.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+	.check input { margin-top: 5px; accent-color: var(--accent); }
+	button { justify-self: start; background: var(--ink); color: var(--paper); border: 0; padding: 14px 28px; font: inherit; font-weight: 600; cursor: pointer; }
+	button:hover { background: var(--accent); }
+	button:disabled { opacity: 0.6; cursor: wait; }
+	.melding { margin: 0; color: #a32d2d; }
+	.melding.goed { color: var(--ink); font-weight: 600; }
+	.hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+	@media (max-width: 600px) { .twee { grid-template-columns: 1fr; } }
 	.klein { color: var(--muted); font-size: 14px; margin-top: 16px; }
 	@media (max-width: 900px) {
 		.soorten { grid-template-columns: 1fr 1fr; }
