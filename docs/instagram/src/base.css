@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; position: relative; }
+.dark { background: #0b0b0b; color: #fff; }
+.light { background: #fff; color: #0b0b0b; }
+.frame { position: absolute; inset: 48px; border: 2px solid currentColor; display: flex; flex-direction: column; justify-content: space-between; padding: 56px; }
+.top, .bottom { display: flex; justify-content: space-between; align-items: center; font-size: 28px; }
+.label { font-weight: 600; font-size: 30px; }
+.dark .label { color: #c0394f; }
+.light .label { color: #7a1f2e; }
+h1 { font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.035em; line-height: 0.98; }
+.muted { opacity: 0.6; }
