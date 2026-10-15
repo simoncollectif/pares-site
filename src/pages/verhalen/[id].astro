@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
+import Cover from '../../components/Cover.astro';
 import { rubriekNaam } from '../../data/rubrieken';
 
 export async function getStaticPaths() {
@@ -15,13 +16,13 @@ const { title, description, date, rubriek, bron, image, imageAlt, imageAi } = po
 ---
 
 <Base title={`${title}. PARES`} description={description}>
-	{image && <Photo src={image} alt={imageAlt ?? ''} ai={imageAi} loading="eager" />}
+	{image ? <Photo src={image} alt={imageAlt ?? ''} ai={imageAi} loading="eager" /> : <Cover titel={title} label={rubriekNaam(rubriek)} groot />}
 	<article class="wrap">
 		<p class="meta">
 			<a href={`/rubriek/${rubriek}/`}>{rubriekNaam(rubriek)}</a>
 			<span>{date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
 		</p>
-		<h1>{title}</h1>
+		{image ? <h1>{title}</h1> : <p class="lead">{description}</p>}
 		<Content />
 		{bron && <p class="bron">Bron: <a href={bron.url} rel="noopener">{bron.naam}</a></p>}
 	</article>
@@ -33,5 +34,8 @@ const { title, description, date, rubriek, bron, image, imageAlt, imageAi } = po
 	.meta a { color: var(--accent); text-decoration: none; }
 	.meta span { color: var(--muted); font-weight: 500; }
 	h1 { font-size: clamp(40px, 6vw, 72px); margin: 0 0 32px; }
+	.lead { font-size: 22px; line-height: 1.5; margin: 0 0 32px; }
+	article :global(h2) { font-size: 32px; margin: 48px 0 16px; }
+	article :global(p) { font-size: 18px; line-height: 1.75; }
 	.bron { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
 </style>

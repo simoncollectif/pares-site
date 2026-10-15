@@ -6,7 +6,7 @@ import Photo from '../components/Photo.astro';
 import CardGrid from '../components/CardGrid.astro';
 import RubriekNav from '../components/RubriekNav.astro';
 import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
-import havana from '../assets/beeld/havana-straat.jpg';
+import varzea from '../assets/beeld/varzea.jpg';
 import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
 import { steden } from '../data/pleintjes';
 const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
@@ -74,7 +74,7 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	</section>
 
 	<section class="duo">
-		<Photo src={havana} alt="Een jongen gooit een bal op in een straat met afbladderende muren, drie kinderen kijken toe" ai />
+		<Photo src={varzea} alt="Een amateurwedstrijd op een rood zandveld aan de rand van een favela, met toeschouwers op een trap en een hond op het veld" ai />
 		<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
 	</section>
 
