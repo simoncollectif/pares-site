@@ -38,9 +38,14 @@ export function soort(p: Pleintje) {
 
 export function titel(p: Pleintje) {
 	if (p.naam) return p.naam;
-	if (p.straat) return `${soort(p)} aan de ${p.straat}`;
+	if (p.straat) return `${soort(p)} ${aan(p.straat)}`;
 	if (p.buurt) return `${soort(p)} in ${p.buurt}`;
 	return soort(p);
+}
+
+// Het-woorden: plein, plantsoen, park, veld, eiland, terrein, hof, erf. De rest krijgt 'de'.
+function aan(straat: string) {
+	return /(plein|plantsoen|park|veld|eiland|terrein|hof|erf|pad)$/i.test(straat) ? `aan het ${straat}` : `aan de ${straat}`;
 }
 
 export function details(p: Pleintje) {
