@@ -8,6 +8,9 @@ vorm: verhaal
 bron:
   naam: SoccerBible
   url: https://www.soccerbible.com/features/2026/10/football-is-entering-its-cottagecore-era/amp/
+image: ../../assets/beeld/tenues-cottagecore.jpg
+imageAlt: Een voetbalshirt met rozenprint op een oude fluwelen fauteuil in een woonkamer met bloemetjesbehang en een oude televisie
+imageAi: true
 ---
 
 Een paar jaar geleden kreeg het een naam: blokecore. Een voetbalshirt, een spijkerbroek, een paar oude sneakers. De look van de gewone jongen op de tribune, opgepikt door de mode. Plotseling droeg iedereen een shirt van een club waar hij nooit was geweest.

@@ -8,6 +8,9 @@ vorm: verhaal
 bron:
   naam: I amsterdam
   url: https://www.iamsterdam.com/en/see-and-do/shopping-and-markets/your-guide-to-amsterdams-best-vintage-football-shirt-shops
+image: ../../assets/beeld/tenues-retro.jpg
+imageAlt: Een rek vol vintage voetbalshirts uit de jaren negentig in een kleine winkel met een hoog grachtenpandraam
+imageAi: true
 ---
 
 Iedereen heeft er een. Het shirt dat je nooit weggooit, ook al past het al jaren niet meer. Van Basten in 1988. Ronaldo in het geel van Brazilië. Een Ajax-shirt met een sponsor die allang niet meer bestaat.

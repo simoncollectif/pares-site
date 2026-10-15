@@ -8,6 +8,9 @@ vorm: verhaal
 bron:
   naam: KNVB
   url: https://www.knvb.nl/node/71638
+image: ../../assets/beeld/tenues-oranje.jpg
+imageAlt: Een fel oranje voetbalshirt hangt over de reling van een balkon van een Nederlandse flat
+imageAi: true
 ---
 
 Oranje is geen kleur. Het is een gevoel. Iedereen in Nederland heeft er een beeld bij: een tompouce op Koningsdag, een stadion vol op een zomeravond, een opa met een sjaal uit 1974.

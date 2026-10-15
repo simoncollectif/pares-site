@@ -8,6 +8,9 @@ vorm: verhaal
 bron:
   naam: Planet Football
   url: https://www.planetfootball.com/lists-and-rankings/top-10-worst-kits-2026-27-season-real-madrid-spurs-villa-newcastle
+image: ../../assets/beeld/tenues-lelijk.jpg
+imageAlt: Een stapel voetbal- en keepersshirts met wilde patronen in neonkleuren op een kantinetafel
+imageAi: true
 ---
 
 Elk seizoen komen er honderden nieuwe voetbalshirts uit. De meeste zijn prima. Een paar zijn prachtig. En een handvol is zo lelijk dat het bijna weer mooi wordt.

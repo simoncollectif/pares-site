@@ -9,6 +9,9 @@ uitgelicht: true
 bron:
   naam: SoccerBible en Sneakerjagers
   url: https://www.soccerbible.com/features/2026/10/football-is-entering-its-cottagecore-era/amp/
+image: ../../assets/beeld/tenues-trainingsjack.jpg
+imageAlt: Een bordeauxrood vintage trainingsjack met witte biezen hangt aan het hek van een voetbalkooi in de schemering
+imageAi: true
 ---
 
 Er is één kledingstuk dat op het veld begon en er nooit meer weg wilde: het trainingsjack. Het hing over de schouders van de wissels, het werd gedragen bij de warming-up, en op een gegeven moment liep half Europa ermee over straat.
