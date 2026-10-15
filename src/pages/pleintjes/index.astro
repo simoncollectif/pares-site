@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import { steden } from '../../data/pleintjes';
+
+const verhalen = (await getCollection('verhalen', ({ data }) => !data.draft && data.rubriek === 'pleintjes')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const binnenkort = ['Rotterdam', 'Den Haag', 'Utrecht', 'Eindhoven'];
+---
+
+<Base title="Pleintjes. PARES" description="Trapveldjes, kooien en Cruyff Courts in Nederland op de kaart, en de verhalen van wie er speelt.">
+	<header class="wrap intro">
+		<h1>Pleintjes</h1>
+		<p>
+			Daar leren de meeste kinderen voetballen: op een trapveldje in de wijk, in een kooi achter de flat, op een Cruyff Court bij
+			school. PARES zet ze op de kaart, stad voor stad.
+		</p>
+	</header>
+
+	<section class="steden">
+		{
+			steden.map((s) => (
+				<a href={`/pleintjes/${s.slug}/`} class="stad">
+					<span class="naam">{s.naam}</span>
+					<span class="n">{s.pleintjes.length} veldjes</span>
+				</a>
+			))
+		}
+		{
+			binnenkort.map((naam) => (
+				<span class="stad later">
+					<span class="naam">{naam}</span>
+					<span class="n">binnenkort</span>
+				</span>
+			))
+		}
+	</section>
+
+	{
+		verhalen.length > 0 && (
+			<section>
+				<h2 class="wrap kop">Verhalen van het pleintje</h2>
+				<CardGrid posts={verhalen} />
+			</section>
+		)
+	}
+</Base>
+
+<style>
+	.intro { padding-block: 10vh 32px; }
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 0 0 16px; }
+	.intro p { color: var(--muted); max-width: 600px; margin: 0; }
+	.steden { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); border-top: 1px solid var(--line); }
+	.stad { display: flex; flex-direction: column; gap: 6px; padding: 28px var(--gutter); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); text-decoration: none; }
+	.naam { font-family: var(--font-head); font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
+	.n { color: var(--accent); font-weight: 600; font-size: 15px; }
+	a.stad:hover { background: var(--ink); color: var(--paper); }
+	.later { color: var(--muted); }
+	.later .n { color: var(--muted); font-weight: 500; }
+	.kop { font-size: clamp(30px, 4vw, 44px); margin: 56px 0 24px; }
+</style>

@@ -1,0 +1,152 @@
+---
+import Base from '../../layouts/Base.astro';
+import { steden, soort, titel, details, kaartLink } from '../../data/pleintjes';
+
+export function getStaticPaths() {
+	return steden.map((s) => ({ params: { stad: s.slug }, props: { stad: s } }));
+}
+
+const { stad } = Astro.props;
+const per = new Map<string, typeof stad.pleintjes>();
+for (const p of stad.pleintjes) per.set(p.stadsdeel, [...(per.get(p.stadsdeel) ?? []), p]);
+const stadsdelen = [...per.entries()].sort((a, b) => b[1].length - a[1].length);
+const punten = stad.pleintjes.map((p) => ({ id: p.id, lat: p.lat, lon: p.lon, t: titel(p), d: details(p), c: soort(p) !== 'Trapveldje' }));
+const courts = stad.pleintjes.filter((p) => soort(p) !== 'Trapveldje').length;
+---
+
+<Base
+	title={`Trapveldjes en pleintjes in ${stad.naam}. PARES`}
+	description={`Alle ${stad.pleintjes.length} trapveldjes, kooien en Cruyff Courts in ${stad.naam} op één kaart, per stadsdeel.`}
+>
+	<header class="wrap intro">
+		<p class="eyebrow"><a href="/pleintjes/">Pleintjes</a></p>
+		<h1>Trapveldjes in {stad.naam}</h1>
+		<p>
+			{stad.pleintjes.length} trapveldjes, kooien en courts, waarvan {courts} Cruyff Courts. Zoek het veldje bij jou in de buurt,
+			of het pleintje waar je zelf bent opgegroeid.
+		</p>
+	</header>
+
+	<div id="kaart" class="kaart" aria-label={`Kaart met trapveldjes in ${stad.naam}`}></div>
+	<p class="legenda wrap"><span class="dot"></span> Trapveldje <span class="dot c"></span> Cruyff Court</p>
+
+	<section class="lijst wrap">
+		{
+			stadsdelen.map(([naam, lijst]) => (
+				<details>
+					<summary>
+						<span>{naam}</span>
+						<span class="n">{lijst.length}</span>
+					</summary>
+					<ul>
+						{lijst.map((p) => (
+							<li>
+								<button type="button" data-id={p.id}>
+									<span class="t">{titel(p)}</span>
+									<span class="d">{details(p)}</span>
+								</button>
+								<a href={kaartLink(p)} rel="noopener" target="_blank">Kaart</a>
+							</li>
+						))}
+					</ul>
+				</details>
+			))
+		}
+	</section>
+
+	<section class="mis wrap">
+		<h2>Mis je een veldje?</h2>
+		<p>
+			Deze kaart is gemaakt met OpenStreetMap, de open kaart die iedereen kan aanvullen. Staat jouw pleintje er niet op, of heeft
+			het een verhaal dat iedereen moet kennen? Laat het ons weten via Instagram. Binnenkort kun je hier ook zelf een veldje insturen.
+		</p>
+		<p class="bron">Kaartdata © OpenStreetMap-bijdragers (ODbL). Stadsdelen: Gemeente Amsterdam.</p>
+	</section>
+
+	<script type="application/json" id="punten" set:html={JSON.stringify(punten)} />
+</Base>
+
+<script>
+	import L from 'leaflet';
+	import 'leaflet/dist/leaflet.css';
+
+	type Punt = { id: string; lat: number; lon: number; t: string; d: string; c: boolean };
+	const punten: Punt[] = JSON.parse(document.getElementById('punten')!.textContent || '[]');
+	const kaart = L.map('kaart', { scrollWheelZoom: false }).setView([52.37, 4.9], 12);
+	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers',
+		maxZoom: 19,
+	}).addTo(kaart);
+
+	const markers = new Map<string, L.CircleMarker>();
+	for (const p of punten) {
+		const m = L.circleMarker([p.lat, p.lon], {
+			radius: p.c ? 8 : 6,
+			color: '#ffffff',
+			weight: 1.5,
+			fillColor: p.c ? '#7a1f2e' : '#0b0b0b',
+			fillOpacity: 1,
+		}).addTo(kaart);
+		const el = document.createElement('div');
+		const b = document.createElement('strong');
+		b.textContent = p.t;
+		el.append(b);
+		if (p.d) {
+			el.append(document.createElement('br'), p.d);
+		}
+		m.bindPopup(el);
+		markers.set(p.id, m);
+	}
+
+	document.querySelectorAll<HTMLButtonElement>('.lijst button[data-id]').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const m = markers.get(btn.dataset.id!);
+			if (!m) return;
+			document.getElementById('kaart')!.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			kaart.flyTo(m.getLatLng(), 17);
+			m.openPopup();
+		});
+	});
+</script>
+
+<style>
+	.intro { padding-block: 10vh 32px; }
+	.eyebrow a { color: var(--accent); font-weight: 600; text-decoration: none; }
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 0 0 16px; }
+	.intro p:last-child { color: var(--muted); max-width: 600px; margin: 0; }
+	.kaart :global(.leaflet-tile-pane) { filter: grayscale(1) contrast(0.9) brightness(1.05); }
+	.kaart { height: 70vh; min-height: 420px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	.legenda { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); padding-block: 12px; }
+	.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); display: inline-block; }
+	.dot.c { background: var(--accent); margin-left: 12px; }
+	.lijst { padding-block: 24px 48px; }
+	details { border-top: 1px solid var(--line); }
+	details:last-child { border-bottom: 1px solid var(--line); }
+	summary {
+		display: flex;
+		justify-content: space-between;
+		padding: 18px 0;
+		cursor: pointer;
+		font-family: var(--font-head);
+		font-weight: 700;
+		font-size: 26px;
+		letter-spacing: -0.02em;
+		list-style: none;
+	}
+	summary::-webkit-details-marker { display: none; }
+	.n { color: var(--accent); }
+	ul { list-style: none; padding: 0 0 16px; margin: 0; columns: 2; column-gap: 40px; }
+	li { break-inside: avoid; display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #e6e6e6; }
+	li button { all: unset; cursor: pointer; display: flex; flex-direction: column; }
+	li button:hover .t { color: var(--accent); }
+	.t { font-weight: 600; }
+	.d { color: var(--muted); font-size: 14px; }
+	li a { font-size: 14px; color: var(--muted); white-space: nowrap; }
+	.mis { padding-block: 48px 64px; border-top: 1px solid var(--line); }
+	.mis h2 { font-size: clamp(30px, 4vw, 44px); margin: 0 0 16px; }
+	.mis p { max-width: 640px; }
+	.bron { color: var(--muted); font-size: 14px; }
+	@media (max-width: 760px) {
+		ul { columns: 1; }
+	}
+</style>

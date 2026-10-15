@@ -11,6 +11,13 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 - PARES is een goednieuws-platform over voetbal. Schrijf als het merk, niet als Simon. Feiten alleen met een gecontroleerde bron. Zie `docs/contentplan.md`, `docs/shootplan.md` en `docs/midjourney-prompts.md`.
 - Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Het logo is `src/components/Monogram.astro`.
 
+## Pleintjeskaart
+
+- `/pleintjes/` en `/pleintjes/[stad]/`, data in `src/data/pleintjes-<stad>.json`, logica in `src/data/pleintjes.ts`.
+- Data opnieuw maken: Overpass-query in `scripts/overpass-amsterdam.ql` naar `data-raw/`, stadsdelen van api.data.amsterdam.nl, dan `python3 -I scripts/pleintjes.py ...` en `python3 -I scripts/straatnamen.py ...` (Nominatim, max 1 verzoek per seconde).
+- Filter: openbaar, tussen 80 en 2.500 m², of een naam als Cruyff Court/Krajicek. Grote clubvelden vallen eruit.
+- Bronvermelding OpenStreetMap (ODbL) moet op de pagina blijven staan.
+
 ## Branding (gekozen 15 oktober 2026)
 
 - **Basis:** clean zwart-wit (#0b0b0b / #ffffff) met strakke 1px-lijnen.

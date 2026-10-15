@@ -8,6 +8,8 @@ import RubriekNav from '../components/RubriekNav.astro';
 import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
 import havana from '../assets/beeld/havana-straat.jpg';
 import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
+import { steden } from '../data/pleintjes';
+const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
 
 const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -46,6 +48,12 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		<RubriekNav />
 		<CardGrid posts={posts} />
 	</section>
+
+	<a class="kaartband wrap" href="/pleintjes/">
+		<span class="k-label">Pleintjes</span>
+		<span class="k-titel">{aantalVeldjes} trapveldjes in Amsterdam op de kaart.</span>
+		<span class="k-cta">Zoek het veldje bij jou in de buurt</span>
+	</a>
 
 	<section class="pillars">
 		<div>
@@ -99,6 +107,19 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 	.cta:hover { background: var(--paper); color: var(--ink); }
 	.hero-mark { display: flex; justify-content: center; }
 	.hero-mark :global(svg) { width: min(100%, 260px); height: auto; }
+
+	.kaartband {
+		display: grid;
+		gap: 8px;
+		padding-block: 48px;
+		background: var(--ink);
+		color: var(--paper);
+		text-decoration: none;
+	}
+	.k-label { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; }
+	.k-titel { font-family: var(--font-head); font-weight: 700; font-size: clamp(30px, 5vw, 60px); letter-spacing: -0.03em; line-height: 1; }
+	.k-cta { text-decoration: underline; text-underline-offset: 4px; font-weight: 600; margin-top: 8px; }
+	.kaartband:hover .k-cta { color: var(--accent-on-dark); }
 
 	.pillars {
 		display: grid;
