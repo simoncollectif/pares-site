@@ -1,15 +1,19 @@
 ---
 title: Waarom PARES
-description: Pares is Latijn voor gelijken. Over het idee achter het merk.
+description: Pares is Latijn voor gelijken. Over een naam die op elk pleintje klopt.
 date: 2026-10-15
 ---
 
-*Pares* is Latijn voor "gelijken". Dat is precies wat voetbal voor mij is.
+Kijk naar een pleintje op woensdagmiddag. Niemand vraagt waar je woont. Niemand vraagt wat je vader doet of welke schoenen je aanhebt. Er wordt gekozen, er wordt gespeeld, en wie scoort mag de volgende keer als eerste kiezen.
 
-Op het veld maakt het niet uit waar je vandaan komt of hoeveel geld je ouders hebben. Iedereen begint bij nul, iedereen wil de bal. Voetbal is het spelletje dat mensen verbindt.
+Dat is wat *pares* betekent. Het is Latijn voor gelijken.
 
-Maar niet elk kind heeft een plek om te spelen of schoenen die goed zitten. Daarom begin ik PARES: een merk voor voetbalschoenen en kleding, waarvan een deel van elke verkoop naar kinderen gaat die willen voetballen. Eerst in Nederland, en daarna ook in landen waar het harder nodig is.
+Op het veld geldt één regel die ergens anders vaak niet geldt: iedereen begint bij nul. De jongen die net in Nederland is en nog geen woord Nederlands spreekt, weet precies wat hij moet doen als de bal naar hem toe komt. Het meisje dat de enige is in een team vol jongens, wordt gekozen omdat ze goed is. Dat gebeurt niet door beleid. Het gebeurt omdat het spel het zo regelt.
 
-We beginnen klein. Eerst dit verhaal en een wachtlijst, dan een eerste voetbaldag op een pleintje, en pas daarna de eerste producten. Alleen als er mensen zijn die het willen dragen.
+Toch staat niet elk kind op dat veld. Contributie kost geld. Voetbalschoenen groeien niet mee. In sommige wijken is het dichtstbijzijnde veldje een parkeerplaats. Dat verschil begint al voor de aftrap.
 
-Gelijken op het veld. *Pares in campo.*
+PARES wil dat verschil kleiner maken. Door de verhalen te vertellen van clubs, trainers en buurten die het al doen. En door zelf voetbaldagen te organiseren op plekken waar kinderen spelen, met een bal, een paar doelen en iets op de barbecue.
+
+We beginnen klein, in Nederland. Eén pleintje tegelijk.
+
+*Pares in campo.* Gelijken op het veld.

@@ -1,19 +1,24 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Monogram from '../components/Monogram.astro';
+
+const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 3);
 ---
 
 <Base>
 	<section class="hero wrap">
 		<div class="hero-text">
-			<p class="eyebrow">Binnenkort</p>
+			<p class="eyebrow">Pares in campo</p>
 			<h1>Gelijken op het veld.</h1>
 			<p class="lead">
-				Op het veld maakt het niet uit waar je vandaan komt of hoeveel geld je ouders hebben.
-				PARES maakt voetbalschoenen en kleding, en een deel van elke verkoop gaat naar kinderen
-				die willen voetballen. In Nederland, en daarna verder.
+				Op het veld maakt het niet uit waar je vandaan komt, welke taal je thuis spreekt of wat
+				je ouders verdienen. Wie de bal wil, doet mee. PARES vertelt de verhalen van dat veld,
+				en werkt eraan dat meer kinderen er een plek op krijgen.
 			</p>
-			<p class="note"><span class="dot"></span>De wachtlijst opent binnenkort.</p>
+			<a class="cta" href="/verhalen/">Lees de verhalen</a>
 		</div>
 		<div class="hero-mark" aria-hidden="true">
 			<Monogram size={260} variant="chrome" />
@@ -23,24 +28,42 @@ import Monogram from '../components/Monogram.astro';
 	<section class="pillars">
 		<div>
 			<span class="num">01</span>
-			<h2>Het spel</h2>
-			<p>Een plek om te spelen, goede schoenen aan je voeten en een dag waar je blij van wordt.</p>
+			<h2>Het pleintje</h2>
+			<p>Een veldje in de wijk, twee jassen als doel. Daar leren de meeste kinderen voetballen.</p>
 		</div>
 		<div>
 			<span class="num">02</span>
-			<h2>De schoen</h2>
-			<p>Goed in pasvorm en kwaliteit. Geen goedkope schoen met een mooi verhaal.</p>
+			<h2>De verhalen</h2>
+			<p>Clubs, trainers en kinderen die laten zien wat voetbal met een buurt doet.</p>
 		</div>
 		<div>
 			<span class="num">03</span>
 			<h2>Het doel</h2>
-			<p>Schoenen en kleding doneren, en voetbaldagen organiseren waar kinderen spelen.</p>
+			<p>Meer kinderen op het veld, met voetbaldagen op pleintjes waar het nodig is.</p>
 		</div>
 	</section>
 
+	{
+		posts.length > 0 && (
+			<section class="latest wrap">
+				<h2>Laatste verhalen</h2>
+				<ul>
+					{posts.map((post) => (
+						<li>
+							<a href={`/verhalen/${post.id}/`}>
+								<span class="title">{post.data.title}</span>
+								<span class="desc">{post.data.description}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
+
 	<section class="quote wrap">
 		<p><em>Pares</em> is Latijn voor gelijken.</p>
-		<a href="/verhalen/waarom-pares/">Lees waarom</a>
+		<a href="/verhalen/waarom-pares/">Waarom deze naam</a>
 	</section>
 </Base>
 
@@ -56,9 +79,15 @@ import Monogram from '../components/Monogram.astro';
 	}
 	.eyebrow { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; margin: 0 0 20px; }
 	h1 { font-size: clamp(52px, 9vw, 120px); margin: 0 0 32px; }
-	.lead { max-width: 540px; color: #d4d4d4; margin: 0 0 28px; }
-	.note { display: flex; align-items: center; gap: 10px; color: #a8a8a8; font-size: 15px; margin: 0; }
-	.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-on-dark); }
+	.lead { max-width: 540px; color: #d4d4d4; margin: 0 0 32px; }
+	.cta {
+		display: inline-block;
+		border: 1px solid var(--paper);
+		padding: 12px 20px;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.cta:hover { background: var(--paper); color: var(--ink); }
 	.hero-mark { display: flex; justify-content: center; }
 	.hero-mark :global(svg) { width: min(100%, 260px); height: auto; }
 
@@ -72,6 +101,14 @@ import Monogram from '../components/Monogram.astro';
 	.num { font-family: var(--font-head); font-weight: 600; color: var(--accent); font-size: 15px; }
 	h2 { font-size: 30px; margin: 12px 0 12px; }
 	.pillars p { margin: 0; color: var(--muted); }
+
+	.latest { padding-block: 56px 0; }
+	.latest ul { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
+	.latest li { border-bottom: 1px solid var(--line); }
+	.latest a { display: block; padding: 22px 0; text-decoration: none; }
+	.latest .title { display: block; font-family: var(--font-head); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+	.latest .desc { color: var(--muted); font-size: 16px; }
+	.latest a:hover .title { color: var(--accent); }
 
 	.quote {
 		display: flex;
