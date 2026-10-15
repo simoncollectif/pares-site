@@ -61,7 +61,7 @@ Breed: "voetbal tijdschrift" (260) past bij hoe PARES zich positioneert. Te groo
 
 Te groot om nu op te mikken: adidas samba (47.500), voetbalschoenen (27.800), trainingspak (14.800), ajax/feyenoord/psv shirt.
 
-Elk tenues-stuk eindigt met een zachte verwijzing naar Drop 01 en de lijst (`/#lijst`). Nooit iets beloven over product, prijs of datum.
+Geen verkooppraat: geen verwijzingen naar een drop, producten, een wachtlijst of 'er komt iets aan'. PARES is nu alleen een magazine en community. Simon beslist zelf wanneer dat verandert.
 
 ## Vorm
 

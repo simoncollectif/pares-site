@@ -1,6 +1,6 @@
 # PARES website
 
-Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van elke verkoop gaat naar een stichting die kinderen laat voetballen. Tagline: *Pares in campo*, gelijken op het veld.
+Magazine en community van PARES (paresfootball.com) over voetbalcultuur: tenues, pleintjes en verhalen van het veld. Later misschien een kledingmerk, maar daar wordt op de site nog niets over gezegd: geen verkooppraat, geen drop, geen wachtlijst. Tagline: *Pares in campo*, gelijken op het veld.
 
 ## Hoe het werkt
 

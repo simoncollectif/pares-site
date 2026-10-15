@@ -50,7 +50,3 @@ Geen regels, wel een paar dingen die altijd werken:
 ## Vintage of nieuw
 
 Wil je een echt vintage trainingsjack, zoek dan in winkels die gespecialiseerd zijn in oude voetbalkleding. In Amsterdam zijn er een paar goede adressen, die we op een rij zetten in [ons stuk over retro voetbaltruitjes](/verhalen/retro-voetbaltruitjes-amsterdam/). Liever nieuw? Steeds meer merken brengen retro-modellen opnieuw uit, met de oude snit en het oude gevoel.
-
-## En wij?
-
-We kunnen het niet laten om het hier te zeggen: bij PARES zijn we ook met iets bezig. Gemaakt voor het veld en voor de straat. Meer zeggen we nog niet. [Zet je op de lijst](/#lijst) als je het als eerste wilt horen.

@@ -52,13 +52,13 @@ const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
 	<section class="drop">
 		<div class="drop-merk" aria-hidden="true"><Monogram size={320} variant="chrome" /></div>
 		<div class="drop-tekst wrap">
-			<p class="drop-label">Drop 01 <span>binnenkort</span></p>
-			<h2>Er komt iets aan.</h2>
+			<p class="drop-label">Pares in campo</p>
+			<h2>Jouw veld hoort hier.</h2>
 			<p>
-				Gemaakt voor het veld en voor de straat. Retro gesneden, zonder poespas, en een deel van elke verkoop gaat naar kinderen die
-				willen voetballen. Meer zeggen we nog niet.
+				Het pleintje waar je opgroeide, het shirt dat je nooit weggooit, de trainer die er elke dinsdag staat. PARES wordt gemaakt
+				door iedereen die van het veld houdt. Stuur het in.
 			</p>
-			<a href="#lijst" class="drop-knop">Zet me op de lijst</a>
+			<a href="/insturen/" class="drop-knop">Stuur je verhaal in</a>
 		</div>
 	</section>
 
@@ -106,13 +106,7 @@ const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
 		</div>
 	</section>
 
-	<Nieuwsbrief
-		id="lijst"
-		label="De lijst"
-		titel="Hoor het als eerste."
-		uitleg="Drop 01, nieuwe verhalen en de PARES-brief. Om de twee weken, kort en zonder reclame."
-		bron="home-drop"
-	/>
+	<Nieuwsbrief bron="home" />
 </Base>
 
 <style>
