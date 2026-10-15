@@ -64,7 +64,9 @@ Breed: "voetbal tijdschrift" (260) past bij hoe PARES zich positioneert. Te groo
 
 ## Verhalen op de plank (uit onderzoek, 15 oktober 2026)
 
-Gepubliceerd: Waarom PARES, Unity EURO Cup 2026, Cruyff Court Meppel, Oranje-shirt 1988.
+Gepubliceerd: Waarom PARES, Unity EURO Cup 2026, Cruyff Court Meppel, Oranje-shirt 1988, KelderLeague, Legacy Match, ING Niemand Buitenspel, Cruyff Court Hamburg, Cruyff Court Leo Beenhakker, Hans van der Meer Goalkeepers.
+
+Nog te checken uit het tweede onderzoek: Bacuna Playground Beijum (jaartal), Grote Clubactie 2026 (opbrengst 30 okt), Girls Event Cruyff Foundation (16 okt), Referee Refugee Programma KNVB, Leicester City kit- en schoeneninzameling, Goal Click wegwerpcamera-verhalen, World Sports Photography Awards (Luis Amaral), EA FC en LaLiga veld in de Bronx.
 
 Volgende, eerst bron checken:
 
