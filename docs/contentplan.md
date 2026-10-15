@@ -43,6 +43,26 @@ Elk stuk heeft in de frontmatter een `rubriek` en een `vorm` (`verhaal` of `kort
 
 Breed: "voetbal tijdschrift" (260) past bij hoe PARES zich positioneert. Te groot om op te mikken: voetbal nieuws (5.400, moeilijkheid 89), goed nieuws (1.000, 73), voetbalveld (18.100, gaat vooral over afmetingen).
 
+## Tenues: zoekwoorden (SE Ranking, oktober 2026)
+
+| Zoekwoord | Volume | Moeilijkheid | Stuk |
+|---|---|---|---|
+| trainingsjack | 610 | 11 | Het trainingsjack is terug |
+| leren voetbalschoenen | 480 | 8 | nog te schrijven (eerst bronnen checken: adidas leercollectie, Nike Tiempo Ligera, Reebok) |
+| retro voetbaltruitjes | 440 | 11 | Retro voetbaltruitjes in Amsterdam |
+| retro trainingspak | 390 | 6 | Het trainingsjack is terug |
+| nieuw oranje shirt | 320 | 12 | Het felste Oranje-shirt ooit |
+| trainingsvest | 260 | 6 | Het trainingsjack is terug |
+| retro voetbalshirt(s) | 220 | 15 | Retro voetbaltruitjes in Amsterdam |
+| nieuwe voetbalshirts | 170 | 12 | nog te schrijven: alle Eredivisie-shirts 2026/27 gerankt |
+| vintage trainingspak | 140 | 6 | Het trainingsjack is terug |
+| copa mundial | 120 | 17 | nog te schrijven, bij leren voetbalschoenen |
+| lelijkste voetbalshirts | 110 | 9 | De lelijkste voetbalshirts van dit seizoen |
+
+Te groot om nu op te mikken: adidas samba (47.500), voetbalschoenen (27.800), trainingspak (14.800), ajax/feyenoord/psv shirt.
+
+Elk tenues-stuk eindigt met een zachte verwijzing naar Drop 01 en de lijst (`/#lijst`). Nooit iets beloven over product, prijs of datum.
+
 ## Vorm
 
 - **Kort:** een nieuwtje van 120 tot 200 woorden. Wat er gebeurde, waar, wie, en waarom het mooi is. Altijd met bron. Drie tot vier per week.
