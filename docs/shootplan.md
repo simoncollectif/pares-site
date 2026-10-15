@@ -1,6 +1,18 @@
 # Shootplan PARES
 
-Stijl: lookbook op film, 90s retro voetbal. Zwart-wit als basis, wijnrood (bordeaux) als enige kleuraccent in kleding of details. Niemand poseert, behalve bij een bewust portret. Geen merklogo's van anderen in beeld.
+Stijl: rauw, echt, retro. Mensen in minder rijke wijken en landen die plezier hebben door voetbal, met een modern streetwear-randje (retro shirts). Zwart-wit of verschoten kleurenfilm. Wijnrood mag terugkomen in kleding.
+
+## Lessen uit de eerste AI-ronde (15 oktober 2026)
+
+De eerste vier beelden waren te gepolijst: steeds ooghoogte, gouden uur, alles netjes scherp, te mooie gezichten. Simon vond ze nep. Wat wel werkt (zijn eigen Midjourney-beelden en Pinterest-referenties):
+
+- **Wissel het standpunt.** Camera op de grond bij de benen, van achter iemand, vanaf een brug naar beneden, heel wijd over een wijk. Nooit twee keer hetzelfde.
+- **Gezichten weg of onscherp.** Benen, ruggen, silhouetten, een figuur onscherp op de voorgrond. Alleen bij een bewust editorial-portret kijkt iemand in de lens.
+- **Rauw boven mooi.** Harde zwart-wit met grove korrel, of verschoten kleurenfilm. Licht scheef, iets onderbelicht, niet alles scherp. Geen gouden-uur-cliché als standaard.
+- **Echte plekken.** Favela's in Rio, straten in Havana of Salvador, kooien en pleintjes in de stad, betonpleinen onder een viaduct.
+- **Opbouw van de prompt:** SUBJECT, CONTEXT, STYLE, CAMERA/LIGHTING (zoals Simon het in Midjourney deed).
+- **Geen merklogo's** van adidas, Nike en andere merken (ook niet op sokken en schoenen), omdat de beelden op de site komen.
+- Nano Banana is te glad. Seedream 5.0 eerst proberen.
 
 Voor nu maken we deze beelden met AI. Later dezelfde lijst gebruiken voor een echte shoot of voetbaldag (camera: analoog of een digitale camera met een Portra-preset).
 
