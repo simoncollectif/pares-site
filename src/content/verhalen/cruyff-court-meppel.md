@@ -2,6 +2,9 @@
 title: Het veldje waar de buurt zelf om vroeg
 description: In Meppel-Haveltermade kwam een nieuw Cruyff Court omdat bewoners en kinderen erom vroegen. Soufiane Touzani opende het.
 date: 2026-10-14
+image: ../../assets/beeld/pleintje-hek.jpg
+imageAlt: Kinderen voetballen op een betonnen pleintje tussen bakstenen flats, gezien door een hek
+imageAi: true
 ---
 
 Op de plek van een oud voetbalveldje in Haveltermade, een wijk in Meppel, ligt sinds juni een nieuw Cruyff Court. Midden in de buurt, vlak bij de scholen.

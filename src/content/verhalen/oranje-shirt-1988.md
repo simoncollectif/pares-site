@@ -2,6 +2,9 @@
 title: Het oranje shirt van 1988
 description: Waarom het shirt van het EK 1988 nog steeds op pleintjes, in kroegen en op festivals te zien is.
 date: 2026-10-13
+image: ../../assets/beeld/bal-krijt.jpg
+imageAlt: Een oude leren bal tegen een bakstenen muur naast een met krijt getekend doel
+imageAi: true
 ---
 
 Op 25 juni 1988 won Nederland in München de finale van het EK van de Sovjet-Unie, met 2-0. Ruud Gullit kopte de eerste binnen. Marco van Basten schoot de tweede in een boog over Rinat Dasajev, vanaf een plek waar niemand had verwacht dat hij zou schieten. Het was de eerste grote prijs voor het Nederlands elftal.

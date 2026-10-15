@@ -80,8 +80,8 @@ Bestand: `posts/06-unity.png`
 >
 > #pares #unityeurocup #voetbal
 
-## 7. Foto: pleintje in Nederland (Midjourney-beeld 2)
-Bestand: nog maken met prompt 2 uit `docs/midjourney-prompts.md`, bijsnijden naar 4:5
+## 7. Foto: pleintje achter het hek
+Bestand: `posts/07-pleintje-hek.jpg`
 
 > In Meppel-Haveltermade vroegen de kinderen zelf om een nieuw veldje. Nu ligt er een Cruyff Court, met voetbal en 3x3-basketbal, de sporten die in de wijk het meest gespeeld worden.
 >
@@ -100,13 +100,26 @@ Bestand: `posts/08-archief.png`
 >
 > #pares #oranje1988 #retrovoetbalshirts
 
-## 9. Foto: retro shirts (Midjourney-beeld 1)
-Bestand: nog maken met prompt 1 uit `docs/midjourney-prompts.md`, bijsnijden naar 4:5
+## 9. Foto: meisjes op het court
+Bestand: `posts/09-meisjes-court.jpg`
 
-> Iedereen heeft er een. Het shirt dat je nooit weggooit, ook al past het al jaren niet meer.
+> Ze was de snelste van het plein. Niemand hoefde dat uit te leggen.
 >
-> Welk shirt is dat bij jou?
+> Op het veld word je gekozen omdat je goed bent. Niet omdat je een jongen bent, of een meisje.
+>
+> Wie was bij jou de snelste van het plein?
 >
 > Beeld gemaakt met AI.
 >
-> #pares #retrovoetbalshirts #voetbalcultuur
+> #pares #meidenvoetbal #straatvoetbal
+
+---
+
+## Klaar voor daarna (week 3 en 4)
+
+- `posts/10-varzea.jpg`: várzea in Brazilië. Bij een verhaal in de rubriek Wereldvoetbal.
+- `posts/11-kooi-nacht-mist.jpg`: kooi bij nacht in de mist. Caption: "Het licht gaat om tien uur uit. Tot die tijd wordt er gespeeld."
+- `posts/12-kooi-nacht-hek.jpg`: kooi bij nacht achter het hek. Als tweede beeld in een carrousel met 11.
+- `posts/13-bal-krijt.jpg`: bal met krijt. Bij een archiefpost, of als laatste beeld in de carrousel over 1988.
+
+Bewaard voor later: het idee "Welk shirt gooi jij nooit weg?" (er was nog geen goed retro-shirtsbeeld).
