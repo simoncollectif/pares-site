@@ -6,6 +6,8 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 
 - Astro, statisch. Elke push naar `main` bouwt en publiceert via GitHub Actions naar GitHub Pages.
 - Domein staat bij Hostinger; DNS wijst naar GitHub Pages. `public/CNAME` moet blijven staan.
+- Google Search Console: domeinproperty paresfootball.com (account simon@lecollectif.nl), geverifieerd met een TXT-record in Hostinger. Laat dat record staan. Sitemap: /sitemap-index.xml (automatisch via @astrojs/sitemap).
+- SEO: elke pagina krijgt titel, description, canonical, og-beeld en JSON-LD via `src/layouts/Base.astro`. Gebruik `seoTitle` in de frontmatter om het zoekwoord vooraan te zetten.
 - Verhalen (blog) zijn markdown-bestanden in `src/content/verhalen/`. `draft: true` houdt een verhaal offline.
 - Elk verhaal heeft een `rubriek` (zie `src/data/rubrieken.ts`), een `vorm` (`verhaal` of `kort`) en bij nieuws een `bron` (naam + url). Beelden staan in `src/assets/beeld/`; zet `imageAi: true` bij AI-beelden.
 - PARES is een goednieuws-platform over voetbal. Schrijf als het merk, niet als Simon. Feiten alleen met een gecontroleerde bron. Zie `docs/contentplan.md`, `docs/shootplan.md` en `docs/midjourney-prompts.md`.
