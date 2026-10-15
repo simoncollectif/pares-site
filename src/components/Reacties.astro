@@ -1,0 +1,41 @@
+---
+import { community } from '../data/community';
+
+interface Props {
+	id: string;
+	titel: string;
+}
+const { id, titel } = Astro.props;
+const url = new URL(Astro.url.pathname, 'https://paresfootball.com').toString();
+---
+
+<section class="reacties">
+	<h2>Reacties</h2>
+	{
+		community.cusdisAppId ? (
+			<>
+				<div
+					id="cusdis_thread"
+					data-host="https://cusdis.com"
+					data-app-id={community.cusdisAppId}
+					data-page-id={id}
+					data-page-url={url}
+					data-page-title={titel}
+					data-theme="light"
+				/>
+				<script is:inline async defer src="https://cusdis.com/js/cusdis.es.js" />
+			</>
+		) : (
+			<p class="binnenkort">
+				Reageren kan binnenkort. Ken je dit veldje, deze club of dit verhaal? <a href="/insturen/">Stuur het ons</a>.
+			</p>
+		)
+	}
+</section>
+
+<style>
+	.reacties { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
+	h2 { font-size: 28px; margin: 0 0 16px; }
+	.binnenkort { color: var(--muted); }
+	.binnenkort a { color: var(--ink); font-weight: 600; }
+</style>

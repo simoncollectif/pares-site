@@ -1,0 +1,35 @@
+---
+import { community } from '../data/community';
+const actief = community.kitEmbedSrc && community.kitFormUid;
+---
+
+<section class="brief">
+	<div class="wrap inner">
+		<div>
+			<p class="label">De PARES-brief</p>
+			<h2>Elke twee weken het mooiste van het veld in je inbox.</h2>
+			<p class="uitleg">Een pleintje, een verhaal, iets uit het archief. Kort, zonder reclame.</p>
+		</div>
+		<div class="form">
+			{
+				actief ? (
+					<script is:inline async data-uid={community.kitFormUid} src={community.kitEmbedSrc} />
+				) : (
+					<p class="binnenkort">De eerste brief komt binnenkort. Volg PARES op Instagram om hem niet te missen.</p>
+				)
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.brief { background: var(--ink); color: var(--paper); border-top: 1px solid var(--line); }
+	.inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-block: 64px; }
+	.label { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; margin: 0 0 12px; }
+	h2 { font-size: clamp(30px, 4vw, 48px); margin: 0 0 16px; }
+	.uitleg { color: #bdbdbd; margin: 0; }
+	.binnenkort { border: 1px solid #555; padding: 20px; color: #d4d4d4; margin: 0; }
+	@media (max-width: 760px) {
+		.inner { grid-template-columns: 1fr; }
+	}
+</style>

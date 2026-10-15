@@ -11,6 +11,11 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 - PARES is een goednieuws-platform over voetbal. Schrijf als het merk, niet als Simon. Feiten alleen met een gecontroleerde bron. Zie `docs/contentplan.md`, `docs/shootplan.md` en `docs/midjourney-prompts.md`.
 - Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Het logo is `src/components/Monogram.astro`.
 
+## Community
+
+- Koppelingen staan in `src/data/community.ts`: Kit (nieuwsbrief), Tally (insturen op `/insturen/`), Cusdis (reacties onder elk verhaal). Leeg = de site toont "binnenkort".
+- Verhalen zijn blogs van 450 tot 700 woorden met context en echte citaten. Nooit citaten verzinnen of parafrases tussen aanhalingstekens zetten.
+
 ## Pleintjeskaart
 
 - `/pleintjes/` en `/pleintjes/[stad]/`, data in `src/data/pleintjes-<stad>.json`, logica in `src/data/pleintjes.ts`.

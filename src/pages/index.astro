@@ -5,6 +5,7 @@ import Monogram from '../components/Monogram.astro';
 import Photo from '../components/Photo.astro';
 import CardGrid from '../components/CardGrid.astro';
 import RubriekNav from '../components/RubriekNav.astro';
+import Nieuwsbrief from '../components/Nieuwsbrief.astro';
 import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
 import varzea from '../assets/beeld/varzea.jpg';
 import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
@@ -77,6 +78,8 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		<Photo src={varzea} alt="Een amateurwedstrijd op een rood zandveld aan de rand van een favela, met toeschouwers op een trap en een hond op het veld" ai />
 		<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
 	</section>
+
+	<Nieuwsbrief />
 
 	<section class="quote wrap">
 		<p><em>Pares</em> is Latijn voor gelijken.</p>

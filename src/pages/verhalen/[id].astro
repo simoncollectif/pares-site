@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import Cover from '../../components/Cover.astro';
+import Reacties from '../../components/Reacties.astro';
+import Nieuwsbrief from '../../components/Nieuwsbrief.astro';
 import { rubriekNaam } from '../../data/rubrieken';
 
 export async function getStaticPaths() {
@@ -25,7 +27,9 @@ const { title, description, date, rubriek, bron, image, imageAlt, imageAi } = po
 		{image ? <h1>{title}</h1> : <p class="lead">{description}</p>}
 		<Content />
 		{bron && <p class="bron">Bron: <a href={bron.url} rel="noopener">{bron.naam}</a></p>}
+		<Reacties id={post.id} titel={title} />
 	</article>
+	<Nieuwsbrief />
 </Base>
 
 <style>

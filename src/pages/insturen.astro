@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Nieuwsbrief from '../components/Nieuwsbrief.astro';
+import { community } from '../data/community';
+
+const soorten = [
+	{ titel: 'Een veldje', tekst: 'Het pleintje, de kooi of het court waar jij bent opgegroeid, of waar elke avond gespeeld wordt.' },
+	{ titel: 'Een verhaal', tekst: 'Een club, trainer, vrijwilliger of buurt die iets moois doet. Groot of heel klein.' },
+	{ titel: 'Een foto', tekst: 'Een beeld van het veld dat je zelf hebt gemaakt. Met je naam erbij, als je dat wilt.' },
+	{ titel: 'Een actie', tekst: 'Een inzameling, een toernooi, een voetbaldag. Alles wat meer kinderen op het veld krijgt.' },
+];
+---
+
+<Base title="Insturen. PARES" description="Stuur PARES een veldje, verhaal, foto of actie. De mooiste komen op de site en in de PARES-brief.">
+	<header class="wrap intro">
+		<h1>Stuur het ons</h1>
+		<p>
+			PARES wordt gemaakt door iedereen die van het veld houdt. Ken je een plek, een persoon of een moment dat meer mensen moeten
+			zien? Stuur het in. De mooiste verhalen komen op de site, op Instagram en in de PARES-brief.
+		</p>
+	</header>
+
+	<section class="soorten">
+		{
+			soorten.map((s) => (
+				<div>
+					<h2>{s.titel}</h2>
+					<p>{s.tekst}</p>
+				</div>
+			))
+		}
+	</section>
+
+	<section class="wrap formulier">
+		{
+			community.tallyFormId ? (
+				<>
+					<iframe
+						data-tally-src={`https://tally.so/embed/${community.tallyFormId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+						loading="lazy"
+						width="100%"
+						height="600"
+						frameborder="0"
+						title="Stuur het ons"
+					/>
+					<script is:inline async src="https://tally.so/widgets/embed.js" onload="Tally.loadEmbeds()" />
+				</>
+			) : (
+				<p class="binnenkort">Het insturen-formulier komt binnenkort. Tot die tijd kun je PARES een bericht sturen op Instagram.</p>
+			)
+		}
+		<p class="klein">Stuur alleen foto's die je zelf hebt gemaakt. Staan er kinderen herkenbaar op, vraag dan eerst toestemming aan hun ouders.</p>
+	</section>
+
+	<Nieuwsbrief />
+</Base>
+
+<style>
+	.intro { padding-block: 10vh 32px; }
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 0 0 16px; }
+	.intro p { color: var(--muted); max-width: 620px; margin: 0; }
+	.soorten { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	.soorten div { padding: 32px var(--gutter); }
+	.soorten div + div { border-left: 1px solid var(--line); }
+	.soorten h2 { font-size: 26px; margin: 0 0 8px; }
+	.soorten p { margin: 0; color: var(--muted); font-size: 16px; }
+	.formulier { padding-block: 48px; max-width: calc(720px + 2 * var(--gutter)); }
+	.binnenkort { border: 1px solid var(--line); padding: 24px; margin: 0; }
+	.klein { color: var(--muted); font-size: 14px; margin-top: 16px; }
+	@media (max-width: 900px) {
+		.soorten { grid-template-columns: 1fr 1fr; }
+		.soorten div:nth-child(3) { border-left: 0; }
+		.soorten div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+	}
+	@media (max-width: 560px) {
+		.soorten { grid-template-columns: 1fr; }
+		.soorten div + div { border-left: 0; border-top: 1px solid var(--line); }
+	}
+</style>
