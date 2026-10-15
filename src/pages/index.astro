@@ -1,78 +1,95 @@
 ---
 import Base from '../layouts/Base.astro';
+import Monogram from '../components/Monogram.astro';
 ---
 
 <Base>
-	<section class="hero">
-		<p class="eyebrow">Binnenkort</p>
-		<h1>Gelijken<br />op het veld.</h1>
-		<p class="lead">
-			Op het veld maakt het niet uit waar je vandaan komt of hoeveel geld je ouders hebben.
-			PARES maakt voetbalschoenen en kleding, en een deel van elke verkoop gaat naar kinderen
-			die willen voetballen. In Nederland, en daarna verder.
-		</p>
-		<p class="note">
-			<span class="dot"></span> De wachtlijst opent binnenkort.
-		</p>
+	<section class="hero wrap">
+		<div class="hero-text">
+			<p class="eyebrow">Binnenkort</p>
+			<h1>Gelijken op het veld.</h1>
+			<p class="lead">
+				Op het veld maakt het niet uit waar je vandaan komt of hoeveel geld je ouders hebben.
+				PARES maakt voetbalschoenen en kleding, en een deel van elke verkoop gaat naar kinderen
+				die willen voetballen. In Nederland, en daarna verder.
+			</p>
+			<p class="note"><span class="dot"></span>De wachtlijst opent binnenkort.</p>
+		</div>
+		<div class="hero-mark" aria-hidden="true">
+			<Monogram size={260} variant="chrome" />
+		</div>
 	</section>
 
 	<section class="pillars">
 		<div>
+			<span class="num">01</span>
 			<h2>Het spel</h2>
 			<p>Een plek om te spelen, goede schoenen aan je voeten en een dag waar je blij van wordt.</p>
 		</div>
 		<div>
+			<span class="num">02</span>
 			<h2>De schoen</h2>
 			<p>Goed in pasvorm en kwaliteit. Geen goedkope schoen met een mooi verhaal.</p>
 		</div>
 		<div>
+			<span class="num">03</span>
 			<h2>Het doel</h2>
 			<p>Schoenen en kleding doneren, en voetbaldagen organiseren waar kinderen spelen.</p>
 		</div>
+	</section>
+
+	<section class="quote wrap">
+		<p><em>Pares</em> is Latijn voor gelijken.</p>
+		<a href="/verhalen/waarom-pares/">Lees waarom</a>
 	</section>
 </Base>
 
 <style>
 	.hero {
-		max-width: 900px;
-		padding: 12vh 0 10vh;
+		background: var(--ink);
+		color: var(--paper);
+		display: grid;
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+		align-items: center;
+		gap: 40px;
+		padding-block: clamp(64px, 12vh, 140px);
 	}
-	.eyebrow {
-		color: var(--accent);
-		text-transform: uppercase;
-		letter-spacing: 0.18em;
-		font-size: 13px;
-		margin: 0 0 24px;
-	}
-	h1 {
-		font-size: clamp(48px, 10vw, 128px);
-		line-height: 0.92;
-		font-weight: 800;
-		font-stretch: 112%;
-		letter-spacing: -0.02em;
-		margin: 0 0 40px;
-		text-transform: uppercase;
-	}
-	.lead { max-width: 560px; color: var(--ink); margin: 0 0 32px; }
-	.note { color: var(--muted); font-size: 15px; display: flex; align-items: center; gap: 10px; }
-	.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+	.eyebrow { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; margin: 0 0 20px; }
+	h1 { font-size: clamp(52px, 9vw, 120px); margin: 0 0 32px; }
+	.lead { max-width: 540px; color: #d4d4d4; margin: 0 0 28px; }
+	.note { display: flex; align-items: center; gap: 10px; color: #a8a8a8; font-size: 15px; margin: 0; }
+	.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-on-dark); }
+	.hero-mark { display: flex; justify-content: center; }
+	.hero-mark :global(svg) { width: min(100%, 260px); height: auto; }
+
 	.pillars {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		border-top: 1px solid var(--line);
-		margin: 0 -24px;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		border-bottom: 1px solid var(--line);
 	}
-	.pillars div { padding: 32px 24px; }
+	.pillars div { padding: 40px var(--gutter); }
 	.pillars div + div { border-left: 1px solid var(--line); }
-	h2 {
-		font-size: 13px;
-		text-transform: uppercase;
-		letter-spacing: 0.18em;
-		margin: 0 0 12px;
-		color: var(--accent);
+	.num { font-family: var(--font-head); font-weight: 600; color: var(--accent); font-size: 15px; }
+	h2 { font-size: 30px; margin: 12px 0 12px; }
+	.pillars p { margin: 0; color: var(--muted); }
+
+	.quote {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 24px;
+		flex-wrap: wrap;
+		padding-block: 56px;
 	}
-	.pillars p { margin: 0; color: var(--muted); font-size: 16px; }
-	@media (max-width: 720px) {
+	.quote p { font-family: var(--font-head); font-weight: 700; font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin: 0; }
+	.quote em { color: var(--accent); }
+	.quote a { font-weight: 600; text-underline-offset: 4px; }
+	.quote a:hover { color: var(--accent); }
+
+	@media (max-width: 760px) {
+		.hero { grid-template-columns: 1fr; }
+		.hero-mark { justify-content: flex-start; }
+		.hero-mark :global(svg) { width: 120px; }
 		.pillars { grid-template-columns: 1fr; }
 		.pillars div + div { border-left: 0; border-top: 1px solid var(--line); }
 	}

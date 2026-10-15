@@ -12,7 +12,7 @@ const { Content } = await render(post);
 ---
 
 <Base title={`${post.data.title}. PARES`} description={post.data.description}>
-	<article>
+	<article class="wrap">
 		<p class="date">{post.data.date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
 		<h1>{post.data.title}</h1>
 		<Content />
@@ -20,14 +20,7 @@ const { Content } = await render(post);
 </Base>
 
 <style>
-	article { max-width: 640px; margin: 10vh 0; }
-	.date { color: var(--accent); font-size: 13px; text-transform: uppercase; letter-spacing: 0.18em; }
-	h1 {
-		font-size: clamp(36px, 6vw, 72px);
-		font-weight: 800;
-		font-stretch: 112%;
-		text-transform: uppercase;
-		line-height: 1;
-		margin: 0 0 32px;
-	}
+	article { max-width: calc(680px + 2 * var(--gutter)); margin: 10vh 0; }
+	.date { color: var(--accent); font-weight: 600; font-size: 15px; }
+	h1 { font-size: clamp(40px, 6vw, 72px); margin: 0 0 32px; }
 </style>

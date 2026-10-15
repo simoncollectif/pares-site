@@ -7,11 +7,17 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 - Astro, statisch. Elke push naar `main` bouwt en publiceert via GitHub Actions naar GitHub Pages.
 - Domein staat bij Hostinger; DNS wijst naar GitHub Pages. `public/CNAME` moet blijven staan.
 - Verhalen (blog) zijn markdown-bestanden in `src/content/verhalen/`. `draft: true` houdt een verhaal offline.
-- Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Accent is voorlopig terracotta; zongeel is het alternatief.
+- Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Het logo is `src/components/Monogram.astro`.
 
-## Branding
+## Branding (gekozen 15 oktober 2026)
 
-Cinematisch, Braziliaans en Afrikaans straatvoetbal, korrelige filmfoto's (gouden uur, 's nachts harde flits). Verder rustig en minimaal: één accentkleur, strakke dunne kaders. Niet AI-achtig. Schrijf in rustig, oprecht Nederlands.
+- **Basis:** clean zwart-wit (#0b0b0b / #ffffff) met strakke 1px-lijnen.
+- **Accent:** wijnrood/bordeaux #7a1f2e, op zwart #c0394f. Alleen als accent, nooit als vlak. Geen paars.
+- **Letters:** kopjes in Inter Tight 700 (nog niet definitief; alternatieven: Bricolage Grotesque, Instrument Sans, Schibsted Grotesk). Tekst in Plus Jakarta Sans.
+- **Geen hoofdletters** in kopjes, subkopjes of labels. Altijd gewone zinsopbouw.
+- **Logo:** monogram P in een cirkel. Chroomversie alleen op zwarte vlakken op de site; in het echt komen de vette details op de producten.
+- **Beeld:** lookbook-foto's op film, met een 90s retro-voetbalgevoel (shirts, trainingspakken, pleintjes). Geen AI-achtige beelden.
+- **Toon:** rustig, oprecht Nederlands.
 
 ## Later naar Shopify
 

@@ -8,6 +8,7 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft)).sort(
 ---
 
 <Base title="Verhalen. PARES" description="Verhalen over voetbal, gelijkheid en het bouwen van PARES.">
+	<div class="wrap">
 	<h1>Verhalen</h1>
 	<ul>
 		{
@@ -21,21 +22,15 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft)).sort(
 			))
 		}
 	</ul>
+	</div>
 </Base>
 
 <style>
-	h1 {
-		font-size: clamp(40px, 7vw, 88px);
-		font-weight: 800;
-		font-stretch: 112%;
-		text-transform: uppercase;
-		margin: 10vh 0 40px;
-		line-height: 1;
-	}
+	h1 { font-size: clamp(44px, 7vw, 88px); margin: 10vh 0 40px; }
 	ul { list-style: none; padding: 0; margin: 0 0 10vh; border-top: 1px solid var(--line); }
 	li { border-bottom: 1px solid var(--line); }
 	a { display: block; padding: 24px 0; text-decoration: none; }
-	.title { display: block; font-size: 24px; font-weight: 700; }
+	.title { display: block; font-family: var(--font-head); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 	.desc { color: var(--muted); font-size: 16px; }
 	a:hover .title { color: var(--accent); }
 </style>
