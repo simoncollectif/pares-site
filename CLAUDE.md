@@ -13,7 +13,7 @@ Merksite van PARES (paresfootball.com): voetbalschoenen en kleding, een deel van
 
 - **Basis:** clean zwart-wit (#0b0b0b / #ffffff) met strakke 1px-lijnen.
 - **Accent:** wijnrood/bordeaux #7a1f2e, op zwart #c0394f. Alleen als accent, nooit als vlak. Geen paars.
-- **Letters:** kopjes in Inter Tight 700 (nog niet definitief; alternatieven: Bricolage Grotesque, Instrument Sans, Schibsted Grotesk). Tekst in Plus Jakarta Sans.
+- **Letters:** kopjes in Schibsted Grotesk 700, tekst in Plus Jakarta Sans.
 - **Geen hoofdletters** in kopjes, subkopjes of labels. Altijd gewone zinsopbouw.
 - **Logo:** monogram P in een cirkel. Chroomversie alleen op zwarte vlakken op de site; in het echt komen de vette details op de producten.
 - **Beeld:** lookbook-foto's op film, met een 90s retro-voetbalgevoel (shirts, trainingspakken, pleintjes). Geen AI-achtige beelden.
