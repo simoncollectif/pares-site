@@ -1,54 +1,84 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Monogram from '../components/Monogram.astro';
 import Photo from '../components/Photo.astro';
-import CardGrid from '../components/CardGrid.astro';
-import RubriekNav from '../components/RubriekNav.astro';
+import Card from '../components/Card.astro';
 import Nieuwsbrief from '../components/Nieuwsbrief.astro';
 import schaduwen from '../assets/beeld/schaduwen-viaduct.jpg';
 import varzea from '../assets/beeld/varzea.jpg';
 import favelaUitzicht from '../assets/beeld/favela-uitzicht.jpg';
 import { steden } from '../data/pleintjes';
-const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
+import { rubriekNaam } from '../data/rubrieken';
 
-const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
-	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.slice(0, 6);
+const alle = (await getCollection('verhalen', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const metBeeld = alle.filter((p) => p.data.image);
+const hoofd = alle.find((p) => p.data.uitgelicht && p.data.image) ?? metBeeld[0];
+const rest = alle.filter((p) => p.id !== hoofd?.id);
+const groot = rest.find((p) => p.data.image);
+const klein = rest.filter((p) => p.id !== groot?.id).slice(0, 4);
+const tenues = alle.filter((p) => p.data.rubriek === 'tenues' || p.data.rubriek === 'archief').slice(0, 6);
+const aantalVeldjes = steden.reduce((n, s) => n + s.pleintjes.length, 0);
 ---
 
 <Base>
-	<section class="hero wrap">
-		<div class="hero-text">
-			<p class="eyebrow">Pares in campo</p>
-			<h1>Gelijken op het veld.</h1>
-			<p class="lead">
-				Op het veld maakt het niet uit waar je vandaan komt, welke taal je thuis spreekt of wat
-				je ouders verdienen. Wie de bal wil, doet mee. PARES vertelt de verhalen van dat veld,
-				en werkt eraan dat meer kinderen er een plek op krijgen.
+	{
+		hoofd && (
+			<a class="hoofd" href={`/verhalen/${hoofd.id}/`}>
+				<Image src={hoofd.data.image!} alt={hoofd.data.imageAlt ?? ''} widths={[800, 1400, 2000]} sizes="100vw" loading="eager" class="hoofd-beeld" />
+				<span class="hoofd-tekst wrap">
+					<span class="pil">{rubriekNaam(hoofd.data.rubriek)}</span>
+					<span class="hoofd-titel">{hoofd.data.title}</span>
+					<span class="hoofd-sub">{hoofd.data.description}</span>
+					<span class="lees">Lees het verhaal</span>
+				</span>
+				{hoofd.data.imageAi && <span class="ai">Illustratie, gemaakt met AI</span>}
+			</a>
+		)
+	}
+
+	<section class="bento">
+		{
+			groot && (
+				<div class="b-groot">
+					<Card post={groot} />
+				</div>
+			)
+		}
+		{klein.map((p) => <Card post={p} />)}
+	</section>
+
+	<section class="drop">
+		<div class="drop-merk" aria-hidden="true"><Monogram size={320} variant="chrome" /></div>
+		<div class="drop-tekst wrap">
+			<p class="drop-label">Drop 01 <span>binnenkort</span></p>
+			<h2>Er komt iets aan.</h2>
+			<p>
+				Gemaakt voor het veld en voor de straat. Retro gesneden, zonder poespas, en een deel van elke verkoop gaat naar kinderen die
+				willen voetballen. Meer zeggen we nog niet.
 			</p>
-			<a class="cta" href="/verhalen/">Lees de verhalen</a>
-		</div>
-		<div class="hero-mark" aria-hidden="true">
-			<Monogram size={260} variant="chrome" />
+			<a href="#lijst" class="drop-knop">Zet me op de lijst</a>
 		</div>
 	</section>
 
-	<Photo
-		src={schaduwen}
-		alt="Vier kinderen rennen achter een bal aan onder een viaduct, met lange schaduwen op het beton"
-		ai
-		loading="eager"
-	/>
-
-	<section class="latest">
-		<div class="wrap latest-head">
-			<h2>Goed nieuws van het veld</h2>
-			<a href="/verhalen/">Alle verhalen</a>
-		</div>
-		<RubriekNav />
-		<CardGrid posts={posts} />
-	</section>
+	{
+		tenues.length > 0 && (
+			<section class="rij-sectie">
+				<div class="rij-kop wrap">
+					<h2>Tenues en archief</h2>
+					<a href="/rubriek/tenues/">Alles over tenues</a>
+				</div>
+				<div class="rij">
+					{tenues.map((p) => (
+						<div class="rij-item">
+							<Card post={p} />
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
 
 	<a class="kaartband wrap" href="/pleintjes/">
 		<span class="k-label">Pleintjes</span>
@@ -56,113 +86,104 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft))
 		<span class="k-cta">Zoek het veldje bij jou in de buurt</span>
 	</a>
 
-	<section class="pillars">
-		<div>
-			<span class="num">01</span>
-			<h2>Het pleintje</h2>
-			<p>Een veldje in de wijk, twee jassen als doel. Daar leren de meeste kinderen voetballen.</p>
-		</div>
-		<div>
-			<span class="num">02</span>
-			<h2>De verhalen</h2>
-			<p>Clubs, trainers en kinderen die laten zien wat voetbal met een buurt doet.</p>
-		</div>
-		<div>
-			<span class="num">03</span>
-			<h2>Het doel</h2>
-			<p>Meer kinderen op het veld, met voetbaldagen op pleintjes waar het nodig is.</p>
+	<section class="beeld">
+		<Photo src={schaduwen} alt="Vier kinderen rennen achter een bal aan onder een viaduct, met lange schaduwen op het beton" ai />
+		<div class="beeld-duo">
+			<Photo src={varzea} alt="Een amateurwedstrijd op een rood zandveld aan de rand van een favela" ai />
+			<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
 		</div>
 	</section>
 
-	<section class="duo">
-		<Photo src={varzea} alt="Een amateurwedstrijd op een rood zandveld aan de rand van een favela, met toeschouwers op een trap en een hond op het veld" ai />
-		<Photo src={favelaUitzicht} alt="Kinderen van achteren gezien in een steeg, met een favela tegen de heuvel" ai />
+	<section class="manifest wrap">
+		<p class="m-groot"><em>Pares</em> is Latijn voor gelijken.</p>
+		<div class="m-tekst">
+			<p>
+				Op het veld maakt het niet uit waar je vandaan komt, welke taal je thuis spreekt of wat je ouders verdienen. Wie de bal wil,
+				doet mee. PARES schrijft over alles wat daarbij hoort: de shirts die je nooit weggooit, de pleintjes waar je leerde
+				voetballen, en de mensen die zorgen dat meer kinderen kunnen spelen.
+			</p>
+			<a href="/verhalen/waarom-pares/">Waarom PARES</a>
+		</div>
 	</section>
 
-	<Nieuwsbrief />
-
-	<section class="quote wrap">
-		<p><em>Pares</em> is Latijn voor gelijken.</p>
-		<a href="/verhalen/waarom-pares/">Waarom deze naam</a>
-	</section>
+	<Nieuwsbrief
+		id="lijst"
+		label="De lijst"
+		titel="Hoor het als eerste."
+		uitleg="Drop 01, nieuwe verhalen en de PARES-brief. Om de twee weken, kort en zonder reclame."
+		bron="home-drop"
+	/>
 </Base>
 
 <style>
-	.hero {
-		background: var(--ink);
-		color: var(--paper);
-		display: grid;
-		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-		align-items: center;
-		gap: 40px;
-		padding-block: clamp(64px, 12vh, 140px);
+	.hoofd { position: relative; display: block; color: var(--paper); text-decoration: none; background: var(--ink); overflow: hidden; }
+	.hoofd :global(.hoofd-beeld) { display: block; width: 100%; height: min(88vh, 900px); object-fit: cover; opacity: 0.82; transition: transform 1.2s ease, opacity 0.4s; }
+	.hoofd:hover :global(.hoofd-beeld) { transform: scale(1.03); opacity: 0.7; }
+	.hoofd::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0) 60%); }
+	.hoofd-tekst { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; gap: 14px; padding-block: 48px; max-width: 1100px; }
+	.pil { justify-self: start; background: var(--accent); color: var(--paper); font-weight: 600; font-size: 14px; padding: 4px 12px; }
+	.hoofd-titel { font-family: var(--font-head); font-weight: 900; font-size: clamp(48px, 9vw, 132px); line-height: 0.92; letter-spacing: -0.045em; }
+	.hoofd-sub { font-size: clamp(17px, 1.6vw, 21px); max-width: 640px; color: #e4e4e4; }
+	.lees { font-weight: 600; text-decoration: underline; text-underline-offset: 5px; }
+	.ai { position: absolute; top: 12px; right: 14px; z-index: 1; font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+
+	.bento { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--line); }
+	.bento > :global(*) { border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+	.bento > :global(*:nth-child(3)), .bento > :global(*:nth-child(5)) { border-right: 0; }
+	.b-groot { grid-row: span 2; }
+	.b-groot :global(.title) { font-size: clamp(30px, 3.4vw, 46px); }
+
+	.drop { position: relative; background: var(--ink); color: var(--paper); overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; min-height: 72vh; }
+	.drop-merk { display: flex; justify-content: center; }
+	.drop-merk :global(svg) { width: min(70%, 380px); height: auto; animation: zweef 6s ease-in-out infinite; }
+	@keyframes zweef { 50% { transform: translateY(-14px) rotate(-4deg); } }
+	@media (prefers-reduced-motion: reduce) { .drop-merk :global(svg) { animation: none; } }
+	.drop-tekst { padding-block: 64px; max-width: 600px; }
+	.drop-label { font-weight: 700; color: var(--accent-on-dark); margin: 0 0 16px; display: flex; gap: 10px; align-items: center; }
+	.drop-label span { border: 1px solid var(--accent-on-dark); padding: 2px 8px; font-size: 13px; font-weight: 600; }
+	.drop h2 { font-size: clamp(56px, 8vw, 120px); margin: 0 0 24px; font-weight: 900; }
+	.drop p { color: #cfcfcf; font-size: 18px; }
+	.drop-knop { display: inline-block; margin-top: 12px; background: var(--paper); color: var(--ink); padding: 14px 24px; font-weight: 700; text-decoration: none; }
+	.drop-knop:hover { background: var(--accent-on-dark); color: var(--paper); }
+
+	.rij-sectie { padding-top: 56px; border-bottom: 1px solid var(--line); }
+	.rij-kop { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+	.rij-kop h2 { font-size: clamp(34px, 5vw, 64px); margin: 0; }
+	.rij-kop a { font-weight: 600; text-underline-offset: 4px; }
+	.rij { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 30%); overflow-x: auto; scroll-snap-type: x mandatory; border-top: 1px solid var(--line); scrollbar-width: thin; }
+	.rij-item { scroll-snap-align: start; border-right: 1px solid var(--line); }
+
+	.kaartband { display: grid; gap: 8px; padding-block: 56px; background: var(--accent); color: var(--paper); text-decoration: none; }
+	.k-label { font-weight: 600; font-size: 15px; opacity: 0.85; }
+	.k-titel { font-family: var(--font-head); font-weight: 900; font-size: clamp(34px, 6vw, 80px); letter-spacing: -0.04em; line-height: 0.95; }
+	.k-cta { text-decoration: underline; text-underline-offset: 5px; font-weight: 600; margin-top: 8px; }
+
+	.beeld { border-bottom: 1px solid var(--line); }
+	.beeld-duo { display: grid; grid-template-columns: 1fr 1fr; }
+	.beeld-duo > :global(* + *) { border-left: 1px solid var(--line); }
+
+	.manifest { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; padding-block: 80px; align-items: end; }
+	.m-groot { font-family: var(--font-head); font-weight: 900; font-size: clamp(44px, 6.5vw, 96px); line-height: 0.95; letter-spacing: -0.045em; margin: 0; }
+	.m-groot em { color: var(--accent); }
+	.m-tekst p { font-size: 18px; margin: 0 0 16px; }
+	.m-tekst a { font-weight: 600; text-underline-offset: 4px; }
+
+	@media (max-width: 900px) {
+		.bento { grid-template-columns: 1fr 1fr; }
+		.b-groot { grid-column: span 2; grid-row: auto; }
+		.bento > :global(*) { border-right: 0 !important; }
+		.bento > :global(*:nth-child(even)) { border-right: 1px solid var(--line) !important; }
+		.drop { grid-template-columns: 1fr; }
+		.drop-merk { padding-top: 48px; }
+		.drop-merk :global(svg) { width: 160px; }
+		.rij { grid-auto-columns: minmax(260px, 75%); }
+		.manifest { grid-template-columns: 1fr; gap: 24px; padding-block: 56px; }
 	}
-	.eyebrow { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; margin: 0 0 20px; }
-	h1 { font-size: clamp(52px, 9vw, 120px); margin: 0 0 32px; }
-	.lead { max-width: 540px; color: #d4d4d4; margin: 0 0 32px; }
-	.cta {
-		display: inline-block;
-		border: 1px solid var(--paper);
-		padding: 12px 20px;
-		font-weight: 600;
-		text-decoration: none;
-	}
-	.cta:hover { background: var(--paper); color: var(--ink); }
-	.hero-mark { display: flex; justify-content: center; }
-	.hero-mark :global(svg) { width: min(100%, 260px); height: auto; }
-
-	.kaartband {
-		display: grid;
-		gap: 8px;
-		padding-block: 48px;
-		background: var(--ink);
-		color: var(--paper);
-		text-decoration: none;
-	}
-	.k-label { color: var(--accent-on-dark); font-weight: 600; font-size: 15px; }
-	.k-titel { font-family: var(--font-head); font-weight: 700; font-size: clamp(30px, 5vw, 60px); letter-spacing: -0.03em; line-height: 1; }
-	.k-cta { text-decoration: underline; text-underline-offset: 4px; font-weight: 600; margin-top: 8px; }
-	.kaartband:hover .k-cta { color: var(--accent-on-dark); }
-
-	.pillars {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		border-bottom: 1px solid var(--line);
-	}
-	.pillars div { padding: 40px var(--gutter); }
-	.pillars div + div { border-left: 1px solid var(--line); }
-	.num { font-family: var(--font-head); font-weight: 600; color: var(--accent); font-size: 15px; }
-	h2 { font-size: 30px; margin: 12px 0 12px; }
-	.pillars p { margin: 0; color: var(--muted); }
-
-	.duo { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
-	.duo :global(.photo + .photo) { border-left: 1px solid var(--line); }
-
-	.latest { padding-top: 56px; }
-	.latest-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 8px; }
-	.latest-head h2 { margin: 0; font-size: clamp(30px, 4vw, 44px); }
-	.latest-head a { font-weight: 600; text-underline-offset: 4px; }
-	.latest-head a:hover { color: var(--accent); }
-
-	.quote {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 24px;
-		flex-wrap: wrap;
-		padding-block: 56px;
-	}
-	.quote p { font-family: var(--font-head); font-weight: 700; font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin: 0; }
-	.quote em { color: var(--accent); }
-	.quote a { font-weight: 600; text-underline-offset: 4px; }
-	.quote a:hover { color: var(--accent); }
-
-	@media (max-width: 760px) {
-		.hero { grid-template-columns: 1fr; }
-		.hero-mark { justify-content: flex-start; }
-		.hero-mark :global(svg) { width: 120px; }
-		.pillars { grid-template-columns: 1fr; }
-		.duo { grid-template-columns: 1fr; }
-		.pillars div + div { border-left: 0; border-top: 1px solid var(--line); }
+	@media (max-width: 560px) {
+		.bento { grid-template-columns: 1fr; }
+		.b-groot { grid-column: auto; }
+		.bento > :global(*) { border-right: 0 !important; }
+		.beeld-duo { grid-template-columns: 1fr; }
+		.beeld-duo > :global(* + *) { border-left: 0; border-top: 1px solid var(--line); }
 	}
 </style>

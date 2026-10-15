@@ -1,16 +1,26 @@
 ---
 interface Props {
 	bron?: string;
+	label?: string;
+	titel?: string;
+	uitleg?: string;
+	id?: string;
 }
-const { bron = Astro.url.pathname } = Astro.props;
+const {
+	bron = Astro.url.pathname,
+	label = 'De PARES-brief',
+	titel = 'Elke twee weken het mooiste van het veld in je inbox.',
+	uitleg = 'Een pleintje, een verhaal, iets uit het archief. Kort, zonder reclame.',
+	id = 'brief',
+} = Astro.props;
 ---
 
-<section class="brief">
+<section class="brief" id={id}>
 	<div class="wrap inner">
 		<div>
-			<p class="label">De PARES-brief</p>
-			<h2>Elke twee weken het mooiste van het veld in je inbox.</h2>
-			<p class="uitleg">Een pleintje, een verhaal, iets uit het archief. Kort, zonder reclame.</p>
+			<p class="label">{label}</p>
+			<h2>{titel}</h2>
+			<p class="uitleg">{uitleg}</p>
 		</div>
 		<form class="brief-form" novalidate>
 			<label class="sr">E-mailadres</label>

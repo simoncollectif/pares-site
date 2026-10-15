@@ -1,5 +1,6 @@
 // Rubrieken van PARES. De slug staat in de frontmatter van elk verhaal (`rubriek`).
 export const rubrieken = [
+	{ slug: 'tenues', naam: 'Tenues', omschrijving: 'Shirts, trainingsjacks, schoenen en alles wat je draagt op en naast het veld. Retro, nieuw en wat eraan komt.' },
 	{ slug: 'clubs', naam: 'Clubs', omschrijving: 'Clubs, groot en klein, die iets goeds doen voor hun buurt.' },
 	{ slug: 'goede-doelen', naam: 'Goede doelen', omschrijving: 'Stichtingen en projecten die voetbal gebruiken om kinderen en buurten verder te helpen.' },
 	{ slug: 'bedrijven', naam: 'Bedrijven', omschrijving: 'Bedrijven die via voetbal iets teruggeven.' },

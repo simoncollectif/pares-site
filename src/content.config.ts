@@ -11,6 +11,10 @@ const verhalen = defineCollection({
 			description: z.string(),
 			date: z.coerce.date(),
 			draft: z.boolean().default(false),
+			// Komt groot bovenaan de homepage.
+			uitgelicht: z.boolean().default(false),
+			// Optionele titel voor Google (zoekwoord vooraan), als die afwijkt van de koptitel.
+			seoTitle: z.string().optional(),
 			rubriek: z.enum(rubriekSlugs),
 			// 'verhaal' is een langer stuk, 'kort' een nieuwtje van een paar alinea's.
 			vorm: z.enum(['verhaal', 'kort']).default('verhaal'),

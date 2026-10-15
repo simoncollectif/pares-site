@@ -15,7 +15,7 @@ const posts = (await getCollection('verhalen', ({ data }) => !data.draft && data
 );
 ---
 
-<Base title={`${rubriek.naam}. PARES`} description={rubriek.omschrijving}>
+<Base title={rubriek.naam} description={rubriek.omschrijving}>
 	<header class="wrap intro">
 		<h1>{rubriek.naam}</h1>
 		<p>{rubriek.omschrijving}</p>

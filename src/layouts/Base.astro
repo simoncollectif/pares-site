@@ -4,11 +4,30 @@ import Monogram from '../components/Monogram.astro';
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	jsonLd?: Record<string, unknown>;
 }
 const {
-	title = 'PARES. Gelijken op het veld',
-	description = 'PARES vertelt de verhalen van het veld en werkt eraan dat meer kinderen kunnen voetballen. Pares in campo: gelijken op het veld.',
+	title,
+	description = 'PARES is een magazine over voetbalcultuur: tenues, retro shirts, pleintjes en de verhalen van het veld. Pares in campo, gelijken op het veld.',
+	image = '/og-default.png',
+	type = 'website',
+	jsonLd,
 } = Astro.props;
+
+const volledigeTitel = title ? `${title} | PARES` : 'PARES · Voetbalcultuur, tenues en verhalen van het veld';
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(image, Astro.site).toString();
+const site = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'PARES',
+	url: 'https://paresfootball.com/',
+	logo: 'https://paresfootball.com/favicon.svg',
+	slogan: 'Pares in campo. Gelijken op het veld.',
+};
+const ticker = ['Pares in campo', 'Gelijken op het veld', 'Tenues', 'Retro shirts', 'Pleintjes', 'Verhalen van het veld', 'Er komt iets aan'];
 ---
 
 <html lang="nl">
@@ -16,26 +35,56 @@ const {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{title}</title>
+		<title>{volledigeTitel}</title>
 		<meta name="description" content={description} />
-		<meta property="og:title" content={title} />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:site_name" content="PARES" />
+		<meta property="og:locale" content="nl_NL" />
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title ?? volledigeTitel} />
 		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="theme-color" content="#0b0b0b" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? site)} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
 	</head>
 	<body>
+		<div class="ticker" aria-hidden="true">
+			<div class="ticker-baan">
+				{[0, 1].map(() => ticker.map((t) => <span>{t}<i>●</i></span>))}
+			</div>
+		</div>
 		<header class="site-header">
-			<a href="/" class="brand"><Monogram size={34} /><span>Pares</span></a>
-			<nav><a href="/verhalen/">Verhalen</a><a href="/pleintjes/">Pleintjes</a><a href="/insturen/">Insturen</a></nav>
+			<a href="/" class="brand" aria-label="PARES, naar de homepage"><Monogram size={34} /><span>Pares</span></a>
+			<nav>
+				<a href="/rubriek/tenues/">Tenues</a>
+				<a href="/verhalen/">Verhalen</a>
+				<a href="/pleintjes/">Pleintjes</a>
+				<a href="/insturen/" class="nav-cta">Insturen</a>
+			</nav>
 		</header>
 		<main><slot /></main>
 		<footer class="site-footer">
-			<span><em>Pares in campo</em>, gelijken op het veld</span>
-			<span>© {new Date().getFullYear()} PARES</span>
+			<div class="f-merk">
+				<Monogram size={56} variant="light" />
+				<p><em>Pares in campo.</em><br />Gelijken op het veld.</p>
+			</div>
+			<nav class="f-nav">
+				<a href="/rubriek/tenues/">Tenues</a>
+				<a href="/verhalen/">Verhalen</a>
+				<a href="/pleintjes/">Pleintjes</a>
+				<a href="/rubriek/archief/">Archief</a>
+				<a href="/insturen/">Insturen</a>
+			</nav>
+			<p class="f-klein">© {new Date().getFullYear()} PARES · paresfootball.com</p>
 		</footer>
 	</body>
 </html>
@@ -62,35 +111,68 @@ const {
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
+		-webkit-font-smoothing: antialiased;
 	}
 	main { flex: 1; }
 	a { color: inherit; }
+	img { max-width: 100%; }
 	h1, h2, h3 {
 		font-family: var(--font-head);
-		font-weight: 700;
-		letter-spacing: -0.03em;
-		line-height: 1;
+		font-weight: 800;
+		letter-spacing: -0.035em;
+		line-height: 0.98;
 	}
 	.wrap { padding-inline: var(--gutter); }
-	.site-header, .site-footer {
+
+	.ticker { background: var(--ink); color: var(--paper); overflow: hidden; white-space: nowrap; font-size: 13px; font-weight: 600; }
+	.ticker-baan { display: inline-flex; animation: ticker 38s linear infinite; padding: 7px 0; }
+	.ticker span { padding-right: 28px; }
+	.ticker i { font-style: normal; color: var(--accent-on-dark); padding-left: 28px; font-size: 9px; vertical-align: 2px; }
+	@keyframes ticker { to { transform: translateX(-50%); } }
+	@media (prefers-reduced-motion: reduce) { .ticker-baan { animation: none; } }
+
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 1000;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 14px var(--gutter);
+		padding: 12px var(--gutter);
+		background: rgba(255, 255, 255, 0.92);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid var(--line);
 		font-size: 15px;
+		font-weight: 500;
 	}
-	.site-header { border-bottom: 1px solid var(--line); }
 	.site-header a { text-decoration: none; }
-	.site-header nav { display: flex; gap: 24px; }
+	.site-header nav { display: flex; gap: 22px; align-items: center; }
 	.site-header nav a:hover { color: var(--accent); }
-	.brand {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		font-family: var(--font-head);
-		font-weight: 700;
-		font-size: 20px;
-		letter-spacing: -0.02em;
+	.site-header .nav-cta { background: var(--ink); color: var(--paper); padding: 7px 14px; }
+	.site-header .nav-cta:hover { background: var(--accent); color: var(--paper); }
+	.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 800; font-size: 21px; letter-spacing: -0.03em; }
+	@media (max-width: 640px) {
+		.site-header nav { gap: 14px; font-size: 14px; }
+		.site-header nav a:nth-child(3) { display: none; }
+		.brand span { display: none; }
 	}
-	.site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; gap: 16px; flex-wrap: wrap; }
+
+	.site-footer {
+		background: var(--ink);
+		color: var(--paper);
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 32px;
+		padding: 56px var(--gutter) 32px;
+	}
+	.f-merk { display: flex; gap: 20px; align-items: center; }
+	.f-merk p { margin: 0; font-family: var(--font-head); font-weight: 800; font-size: 26px; line-height: 1.05; letter-spacing: -0.03em; }
+	.f-nav { display: grid; gap: 6px; text-align: right; }
+	.f-nav a { text-decoration: none; color: #cfcfcf; }
+	.f-nav a:hover { color: var(--accent-on-dark); }
+	.f-klein { grid-column: 1 / -1; margin: 0; color: #8a8a8a; font-size: 13px; border-top: 1px solid #333; padding-top: 16px; }
+	@media (max-width: 640px) {
+		.site-footer { grid-template-columns: 1fr; }
+		.f-nav { text-align: left; }
+	}
 </style>
