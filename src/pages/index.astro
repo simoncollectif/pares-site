@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+	<section class="hero">
+		<p class="eyebrow">Binnenkort</p>
+		<h1>Gelijken<br />op het veld.</h1>
+		<p class="lead">
+			Op het veld maakt het niet uit waar je vandaan komt of hoeveel geld je ouders hebben.
+			PARES maakt voetbalschoenen en kleding, en een deel van elke verkoop gaat naar kinderen
+			die willen voetballen. In Nederland, en daarna verder.
+		</p>
+		<p class="note">
+			<span class="dot"></span> De wachtlijst opent binnenkort.
+		</p>
+	</section>
+
+	<section class="pillars">
+		<div>
+			<h2>Het spel</h2>
+			<p>Een plek om te spelen, goede schoenen aan je voeten en een dag waar je blij van wordt.</p>
+		</div>
+		<div>
+			<h2>De schoen</h2>
+			<p>Goed in pasvorm en kwaliteit. Geen goedkope schoen met een mooi verhaal.</p>
+		</div>
+		<div>
+			<h2>Het doel</h2>
+			<p>Schoenen en kleding doneren, en voetbaldagen organiseren waar kinderen spelen.</p>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.hero {
+		max-width: 900px;
+		padding: 12vh 0 10vh;
+	}
+	.eyebrow {
+		color: var(--accent);
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		font-size: 13px;
+		margin: 0 0 24px;
+	}
+	h1 {
+		font-size: clamp(48px, 10vw, 128px);
+		line-height: 0.92;
+		font-weight: 800;
+		font-stretch: 112%;
+		letter-spacing: -0.02em;
+		margin: 0 0 40px;
+		text-transform: uppercase;
+	}
+	.lead { max-width: 560px; color: var(--ink); margin: 0 0 32px; }
+	.note { color: var(--muted); font-size: 15px; display: flex; align-items: center; gap: 10px; }
+	.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+	.pillars {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		border-top: 1px solid var(--line);
+		margin: 0 -24px;
+	}
+	.pillars div { padding: 32px 24px; }
+	.pillars div + div { border-left: 1px solid var(--line); }
+	h2 {
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		margin: 0 0 12px;
+		color: var(--accent);
+	}
+	.pillars p { margin: 0; color: var(--muted); font-size: 16px; }
+	@media (max-width: 720px) {
+		.pillars { grid-template-columns: 1fr; }
+		.pillars div + div { border-left: 0; border-top: 1px solid var(--line); }
+	}
+</style>

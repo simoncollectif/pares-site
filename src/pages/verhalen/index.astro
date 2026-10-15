@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('verhalen', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Base title="Verhalen. PARES" description="Verhalen over voetbal, gelijkheid en het bouwen van PARES.">
+	<h1>Verhalen</h1>
+	<ul>
+		{
+			posts.map((post) => (
+				<li>
+					<a href={`/verhalen/${post.id}/`}>
+						<span class="title">{post.data.title}</span>
+						<span class="desc">{post.data.description}</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</Base>
+
+<style>
+	h1 {
+		font-size: clamp(40px, 7vw, 88px);
+		font-weight: 800;
+		font-stretch: 112%;
+		text-transform: uppercase;
+		margin: 10vh 0 40px;
+		line-height: 1;
+	}
+	ul { list-style: none; padding: 0; margin: 0 0 10vh; border-top: 1px solid var(--line); }
+	li { border-bottom: 1px solid var(--line); }
+	a { display: block; padding: 24px 0; text-decoration: none; }
+	.title { display: block; font-size: 24px; font-weight: 700; }
+	.desc { color: var(--muted); font-size: 16px; }
+	a:hover .title { color: var(--accent); }
+</style>
