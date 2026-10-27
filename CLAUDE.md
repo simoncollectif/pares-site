@@ -13,6 +13,13 @@ Magazine en community van PARES (paresfootball.com) over voetbalcultuur: tenues,
 - PARES is een goednieuws-platform over voetbal. Schrijf als het merk, niet als Simon. Feiten alleen met een gecontroleerde bron. Zie `docs/contentplan.md`, `docs/shootplan.md` en `docs/midjourney-prompts.md`.
 - Merkkleuren en letters staan als variabelen in `src/layouts/Base.astro`. Het logo is `src/components/Monogram.astro`.
 
+## Automatische redactie (cloud-routines)
+
+- Routine "PARES redactie: nieuw stuk (ma/wo/vr)" draait maandag, woensdag en vrijdag om 06:00 UTC (07:00 in de winter, 08:00 in de zomer in Nederland). Werkwijze: `docs/redactie.md`. Beheer: https://claude.ai/code/routines
+- Routine "PARES-brief (om de week, vrijdag)" draait elke vrijdag om 09:00 UTC en verstuurt alleen in even weken.
+- Routines pushen naar `main` of naar een branch `claude/...`; de workflow `.github/workflows/auto-publish.yml` zet die op main en start de deploy.
+- Affiliate: programma's in `src/data/affiliate.ts`, melding via `affiliate: true` in de frontmatter. PARES verkoopt zelf niets (geen resellen, geen eigen producten op de site).
+
 ## Community (eigen backend)
 
 - Google Apps Script "PARES backend" op Simons Google-account (simon@lecollectif.nl), code in `backend/Code.gs`. Wijzig je de code: plak hem in de editor op script.google.com en maak een nieuwe versie van de bestaande implementatie (zelfde URL).
