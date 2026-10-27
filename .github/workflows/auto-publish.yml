@@ -1,0 +1,36 @@
+name: Auto-publish (redactie-routine)
+
+# De cloud-routine pusht nieuwe stukken naar een branch claude/...
+# Deze workflow zet die op main en publiceert de site.
+on:
+  push:
+    branches: ['claude/**']
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Branch op main zetten
+        run: |
+          git config user.name "pares-redactie"
+          git config user.email "redactie@paresfootball.com"
+          git fetch origin "${GITHUB_REF_NAME}"
+          git merge --no-edit "origin/${GITHUB_REF_NAME}"
+          git push origin main
+          git push origin --delete "${GITHUB_REF_NAME}"
+  deploy:
+    needs: merge
+    uses: ./.github/workflows/deploy.yml

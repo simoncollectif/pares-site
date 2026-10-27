@@ -57,6 +57,7 @@ const jsonLd = {
 		</p>
 		{image && <h1>{title}</h1>}
 		<p class="lead">{description}</p>
+		{post.data.affiliate && <p class="affiliate">Dit stuk bevat affiliate-links. Koop je via zo'n link, dan krijgt PARES een klein deel van het bedrag. Jij betaalt niets extra.</p>}
 		<div class="tekst">
 			<Content />
 		</div>
@@ -107,6 +108,7 @@ const jsonLd = {
 	.tekst :global(ul), .tekst :global(ol) { font-size: 19px; line-height: 1.7; padding-left: 22px; }
 	.tekst :global(li) { margin-bottom: 8px; }
 	.tekst :global(a) { text-decoration-color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+	.affiliate { font-size: 14px; color: var(--muted); border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; margin: -16px 0 32px; }
 	.bron { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
 	.meer { border-top: 1px solid var(--line); padding-top: 40px; }
 	.meer h2 { font-size: clamp(30px, 4vw, 48px); margin: 0 0 16px; }

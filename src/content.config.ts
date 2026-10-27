@@ -13,6 +13,8 @@ const verhalen = defineCollection({
 			draft: z.boolean().default(false),
 			// Komt groot bovenaan de homepage.
 			uitgelicht: z.boolean().default(false),
+			// true = het stuk bevat affiliate-links; de site toont dan een melding.
+			affiliate: z.boolean().default(false),
 			// Optionele titel voor Google (zoekwoord vooraan), als die afwijkt van de koptitel.
 			seoTitle: z.string().optional(),
 			rubriek: z.enum(rubriekSlugs),
