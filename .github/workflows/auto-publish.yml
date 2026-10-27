@@ -1,22 +1,21 @@
 name: Auto-publish (redactie-routine)
 
 # De cloud-routine pusht nieuwe stukken naar een branch claude/...
-# Deze workflow zet die op main en publiceert de site.
+# Deze workflow zet die op main en start daarna de gewone deploy op main.
 on:
   push:
     branches: ['claude/**']
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
+  actions: write
 
 concurrency:
   group: auto-publish
   cancel-in-progress: false
 
 jobs:
-  merge:
+  publiceer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +30,7 @@ jobs:
           git merge --no-edit "origin/${GITHUB_REF_NAME}"
           git push origin main
           git push origin --delete "${GITHUB_REF_NAME}"
-  deploy:
-    needs: merge
-    uses: ./.github/workflows/deploy.yml
+      - name: Deploy op main starten
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
