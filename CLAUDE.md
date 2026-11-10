@@ -23,7 +23,8 @@ Magazine en community van PARES (paresfootball.com) over voetbalcultuur: tenues,
 ## Community (eigen backend)
 
 - Google Apps Script "PARES backend" op Simons Google-account (simon@lecollectif.nl), code in `backend/Code.gs`. Wijzig je de code: plak hem in de editor op script.google.com en maak een nieuwe versie van de bestaande implementatie (zelfde URL).
-- Opslag: Google Sheet "PARES data" (tabs Inschrijvingen, Insturen, Reacties), foto's in Drive-map "PARES insturen". Meldingen gaan per mail naar Simon.
+- Opslag: Google Sheet "PARES data" (tabs Inschrijvingen, Insturen, Reacties, Bezoeken), foto's in Drive-map "PARES insturen". Meldingen gaan per mail naar Simon.
+- Bezoekersteller zonder cookies: een script onderaan `Base.astro` stuurt per pagina een `view` naar de backend (pagina, herkomst-domein, nieuw bezoek ja/nee via sessionStorage). De tab Bezoeken telt per dag, pagina en herkomst. Cijfers: `python3 -I scripts/brief.py stats` (veld `bezoekers`).
 - Site: `src/data/community.ts` (web-app-URL), `src/scripts/api.ts`, componenten `Nieuwsbrief.astro` en `Reacties.astro`, pagina `/insturen/`.
 - Nieuwsbrief met dubbele opt-in en afmeldlink. Versturen en beheren: `python3 -I scripts/brief.py stats|review|hide|test|send` (sleutels in `data-raw/backend.json`, niet in git). Altijd eerst `test`, en Simon vragen voordat je `send` doet.
 - Verhalen zijn blogs van 450 tot 700 woorden met context en echte citaten. Nooit citaten verzinnen of parafrases tussen aanhalingstekens zetten.

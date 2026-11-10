@@ -5,7 +5,8 @@
  * Eenmalig: voer setup() uit in de editor. Daarna publiceren als web-app:
  * uitvoeren als "Ik", toegang "Iedereen". De URL komt in src/data/community.ts.
  *
- * Publiek (vanaf de site):  subscribe, submit, comment (POST, text/plain JSON) en comments (GET).
+ * Publiek (vanaf de site):  subscribe, submit, comment, view (POST, text/plain JSON) en comments (GET).
+ * Bezoekersteller (view): telt per dag, pagina en herkomst in de tab "Bezoeken". Geen cookies, geen IP, geen persoonsgegevens.
  * Links in mails:           confirm, unsubscribe (GET).
  * Beheer (met ADMIN_TOKEN): send, stats, review, hide (POST).
  */
@@ -135,6 +136,7 @@ function doPost(e) {
       case 'subscribe': return inschrijven(d);
       case 'submit': return insturen(d);
       case 'comment': return reageren(d);
+      case 'view': return bezoek(d);
       case 'send': return beheer(d) || versturen(d);
       case 'stats': return beheer(d) || statistiek();
       case 'review': return beheer(d) || overzicht();
@@ -261,6 +263,73 @@ function verbergen(d) {
   return json({ ok: false, fout: 'Niet gevonden.' });
 }
 
+/* ---------- bezoekersteller ---------- */
+
+function bezoekenBlad() {
+  const ss = SpreadsheetApp.openById(PROPS.getProperty('SHEET_ID'));
+  let sh = ss.getSheetByName('Bezoeken');
+  if (!sh) {
+    sh = ss.insertSheet('Bezoeken');
+    sh.appendRow(['dag', 'pagina', 'herkomst', 'weergaven', 'bezoeken']);
+  }
+  return sh;
+}
+
+function bezoek(d) {
+  const pag = String(d.page || '');
+  if (!/^\/[a-z0-9\-\/]{0,150}$/.test(pag)) return json({ ok: false });
+  const herkomst = /^[a-z0-9.\-]{1,80}$/.test(String(d.ref || '')) ? String(d.ref) : 'direct';
+  const dag = Utilities.formatDate(new Date(), 'Europe/Amsterdam', 'yyyy-MM-dd');
+  const nieuw = d.nieuw ? 1 : 0;
+  const sh = bezoekenBlad();
+  const n = sh.getLastRow();
+  // Alleen de rijen van vandaag doorzoeken: die staan onderaan.
+  const vanaf = Math.max(2, n - 400);
+  if (n >= 2) {
+    const rijen = sh.getRange(vanaf, 1, n - vanaf + 1, 5).getDisplayValues();
+    for (let i = rijen.length - 1; i >= 0; i--) {
+      if (rijen[i][0] !== dag) break;
+      if (rijen[i][1] === pag && rijen[i][2] === herkomst) {
+        const r = vanaf + i;
+        sh.getRange(r, 4, 1, 2).setValues([[Number(rijen[i][3]) + 1, Number(rijen[i][4]) + nieuw]]);
+        return json({ ok: true });
+      }
+    }
+  }
+  sh.appendRow([dag, pag, herkomst, 1, nieuw]);
+  sh.getRange(sh.getLastRow(), 1).setNumberFormat('@');
+  return json({ ok: true });
+}
+
+function bezoekCijfers() {
+  const rijen = bezoekenBlad().getDataRange().getDisplayValues().slice(1);
+  const vandaag = new Date();
+  function grens(dagen) {
+    return Utilities.formatDate(new Date(vandaag.getTime() - (dagen - 1) * 864e5), 'Europe/Amsterdam', 'yyyy-MM-dd');
+  }
+  function som(dagen) {
+    const g = grens(dagen);
+    let w = 0, b = 0;
+    rijen.forEach(function (r) { if (r[0] >= g) { w += Number(r[3]); b += Number(r[4]); } });
+    return { weergaven: w, bezoeken: b };
+  }
+  function top(kolom, dagen, aantal) {
+    const g = grens(dagen), t = {};
+    rijen.forEach(function (r) { if (r[0] >= g) t[r[kolom]] = (t[r[kolom]] || 0) + Number(r[3]); });
+    return Object.keys(t).sort(function (a, b) { return t[b] - t[a]; }).slice(0, aantal).map(function (k) { return [k, t[k]]; });
+  }
+  const perDag = {};
+  rijen.forEach(function (r) { if (r[0] >= grens(14)) perDag[r[0]] = (perDag[r[0]] || 0) + Number(r[4]); });
+  return {
+    vandaag: som(1),
+    week: som(7),
+    maand: som(30),
+    bezoekenPerDag: perDag,
+    topPaginas: top(1, 30, 10),
+    herkomst: top(2, 30, 10),
+  };
+}
+
 /* ---------- beheer ---------- */
 
 function statistiek() {
@@ -271,6 +340,7 @@ function statistiek() {
     insturingen: blad('Insturen').getLastRow() - 1,
     reacties: blad('Reacties').getLastRow() - 1,
     mailQuotum: MailApp.getRemainingDailyQuota(),
+    bezoekers: bezoekCijfers(),
   });
 }
 

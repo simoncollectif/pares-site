@@ -86,6 +86,26 @@ const ticker = ['Pares in campo', 'Gelijken op het veld', 'Tenues', 'Retro shirt
 			</nav>
 			<p class="f-klein">© {new Date().getFullYear()} PARES · paresfootball.com</p>
 		</footer>
+		<script>
+			// Bezoekersteller zonder cookies: stuurt alleen pagina, herkomst (domeinnaam) en of het een nieuw bezoek is.
+			import { community } from '../data/community';
+			try {
+				if (location.hostname === 'paresfootball.com' && !navigator.webdriver) {
+					let nieuw = false;
+					try {
+						nieuw = !sessionStorage.getItem('pares-bezoek');
+						sessionStorage.setItem('pares-bezoek', '1');
+					} catch {}
+					let ref = '';
+					try {
+						const host = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : '';
+						if (host && host !== location.hostname) ref = host;
+					} catch {}
+					const body = JSON.stringify({ action: 'view', page: location.pathname.toLowerCase(), ref, nieuw });
+					navigator.sendBeacon(community.api, new Blob([body], { type: 'text/plain;charset=utf-8' }));
+				}
+			} catch {}
+		</script>
 	</body>
 </html>
 
